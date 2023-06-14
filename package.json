@@ -1,0 +1,31 @@
+{
+  "name": "app",
+  "private": "true",
+  "scripts": {
+    "build": "esbuild app/javascript/*.* --bundle --sourcemap --outdir=app/assets/builds --public-path=assets",
+    "watch": "esbuild app/javascript/*.* --watch --bundle --outdir=app/assets/builds --loader:.js=jsx",
+    "lint": "eslint app/javascript",
+    "lint-fix": "eslint --fix './app/javascript//**/*.{js,ts}' && prettier --write './app/javascript//**/*.{js,ts}'"
+  },
+  "dependencies": {
+    "@hotwired/stimulus": "^3.2.1",
+    "@hotwired/turbo-rails": "^7.3.0",
+    "pikaday": "^1.8.2",
+    "prop-types": "^15.8.1",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
+    "react-router-dom": "^6.12.1",
+    "react-toastify": "^9.1.3"
+  },
+  "devDependencies": {
+    "esbuild": "^0.17.19",
+    "eslint": "^8.42.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-import": "^2.25.3",
+    "eslint-plugin-jsx-a11y": "^6.5.1",
+    "eslint-plugin-react": "^7.28.0",
+    "eslint-plugin-react-hooks": "^4.3.0",
+    "prettier": "^2.8.8"
+  }
+}
