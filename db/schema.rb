@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_13_002526) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_14_121054) do
   create_table "lectures", force: :cascade do |t|
     t.string "title"
     t.string "lecturer"
@@ -25,6 +25,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_13_002526) do
     t.integer "lecture_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "period"
+    t.string "textbook"
+    t.string "attendance"
+    t.string "grading_type"
+    t.string "content_dificulty"
+    t.string "content_quality"
     t.index ["lecture_id"], name: "index_reviews_on_lecture_id"
   end
 
