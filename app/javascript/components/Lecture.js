@@ -1,14 +1,61 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import LectureNotFound from './LectureNotFound';
+import { success } from '../helpers/notifications';
+import { handleAjaxError } from '../helpers/helpers';
 
-const Lecture = ({ lectures, onDelete }) => {
+
+const Lecture = ({ lectures, onDelete, }) => {
+  const [reviews, setReviews] = useState([]);
   const { id } = useParams(); // useParamsでURLを取得し、分割代入でidを代入
+  const navigate = useNavigate();
   const lecture = lectures.find((e) => e.id === Number(id)); // findでidが一致するlectureを取得
 
+
+  useEffect(() => {
+    const fetchReviews = async () => {
+      try {
+        // eslint-disable-next-line no-undef
+        const response = await fetch(`/api/lectures/${id}/reviews`);
+        if (!response.ok) throw Error(response.statusText);
+        const data = await response.json();
+        setReviews(data);
+      } catch (error) {
+        handleAjaxError(error);
+      }
+    };
+
+    fetchReviews();
+  }, [id]);
+
+
+
+
+  const deleteReview = async (reviewId) => {
+    const sure = window.confirm('Are you sure?');
+
+    if (sure) {
+      try {
+        const response = await window.fetch(`/api/events/${id}/reviews/${reviewId}`, {
+          method: 'DELETE',
+        });
+
+        if (!response.ok) throw Error(response.statusText);
+
+        success('Review Deleted!');
+        navigate('/lectures');
+        setReviews(reviews.filter(review => review.id !== reviewId)); // eventsから削除したイベントを除いた配列を作成
+        success('Review Deleted!');
+      } catch (error) {
+        handleAjaxError(error);
+      }
+    }
+  };
+
+
   if (!lecture) return <LectureNotFound />;
-  
+
   return (
     <div className='eventContainer'>
       <h2>
@@ -30,6 +77,16 @@ const Lecture = ({ lectures, onDelete }) => {
           <strong>学部:</strong> {lecture.faculty}
         </li>
       </ul>
+
+      {reviews.map((review) => (
+        <div key={review.id}>
+          <p>{review.content}</p>
+          <p>Rating: {review.rating}</p>
+          <button type='button' onClick={() => deleteReview(review.id)}>Delete Review</button>
+        </div>
+      ))}
+      <Link to="newReview">Add a review</Link>
+
     </div>
   );
 };
@@ -43,7 +100,7 @@ Lecture.propTypes = {
       faculty: PropTypes.string.isRequired,
     })
   ).isRequired,
-  onDelete: PropTypes.func.isRequired, 
+  onDelete: PropTypes.func.isRequired,
 };
 
 export default Lecture;

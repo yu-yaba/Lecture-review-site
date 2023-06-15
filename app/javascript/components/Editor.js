@@ -6,12 +6,15 @@ import Lecture from './Lecture';
 import LectureForm from './LectureForm';
 import { success } from '../helpers/notifications';
 import { handleAjaxError } from '../helpers/helpers';
+import ReviewForm from './ReviewForm';
 
 const Editor = () => {
   const [lectures, setLectures] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-
   const navigate = useNavigate();
+    // Add state for reviews
+    const [reviews, setReviews] = useState([]);    
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -85,20 +88,42 @@ const Editor = () => {
           },
         }
       );
-  
+
       if (!response.ok) throw Error(response.statusText);
-  
+
       const newLecture = lectures;
       const idx = newLecture.findIndex((lecture) => lecture.id === updatedLecture.id);
       newLecture[idx] = updatedLecture;
       setLectures(newLecture);
-  
+
       success('Lecture Updated!');
       navigate(`/lectures/${updatedLecture.id}`);
     } catch (error) {
       handleAjaxError(error);
     }
   };
+
+  const addReview = async (reviewWithLectureId) => {
+    try {
+      const response = await fetch(`/api/lectures/${reviewWithLectureId.lecture_id}/reviews`, {
+        method: 'POST',
+        body: JSON.stringify(reviewWithLectureId),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+  
+      if (!response.ok) throw Error(response.statusText);
+  
+      const savedReview = await response.json();
+      setReviews([...reviews, savedReview]);
+      success('Review Added!');
+      navigate(`/lectures/${reviewWithLectureId.lecture_id}`);
+    } catch (error) {
+      handleAjaxError(error);
+    }
+  };
+    
   return (
     <>
       <Header />
@@ -114,8 +139,9 @@ const Editor = () => {
             <Routes>
               <Route path="new" element={<LectureForm onSave={addLecture} />} />
               <Route path=":id/edit" element={<LectureForm lectures={lectures} onSave={updateLecture} />}/>
-              <Route path=":id" element={<Lecture lectures={lectures} onDelete={deleteLecture} />} />
-            </Routes>
+              <Route path=":id/*" element={<Lecture lectuzres={lectures} reviews={reviews} addReview={addReview} onDelete={deleteLecture} />} />
+              <Route path=":id/newReview" element={<ReviewForm onSave={addReview} />} />
+            </Routes>          
           </>
         )}
       </div>

@@ -10,6 +10,7 @@ module.exports = {
     'no-console': 0,
     "import/no-extraneous-dependencies": ["error", {"devDependencies": true}],
     'no-alert': 0,
+    "react-hooks/exhaustive-deps": "warn"
   },
   "env": {
     "browser": true,
