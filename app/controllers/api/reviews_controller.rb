@@ -1,5 +1,12 @@
 class Api::ReviewsController < ApplicationController
   before_action :set_lecture
+  
+  def index
+    lecture = Lecture.find(params[:lecture_id])
+    reviews = lecture.reviews
+    render json: reviews
+  end
+
 
   # POST /lectures/:lecture_id/reviews
   def create
