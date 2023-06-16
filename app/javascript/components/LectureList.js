@@ -35,13 +35,13 @@ const LectureList = ({ lectures }) => {
   return (
     <section className="lectureList">
       <h2>
-        Lectures
-        <Link to="/lectures/new">New Lecture</Link>
+        授業一覧
+        <Link to="/lectures/new">講義を登録</Link>
       </h2>
 
       <input
         className="search"
-        placeholder="Search"
+        placeholder="検索"
         type="text"
         ref={searchInput}
         onKeyUp={updateSearchTerm} // キーを話した時に実行
