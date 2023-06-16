@@ -1,7 +1,7 @@
 Rails.application.routes.draw do  
   namespace :api do
     resources :lectures do
-      resources :reviews, only: [:index, :create, :destroy]
+      resources :reviews, only: [:index, :create]
     end
   end
   

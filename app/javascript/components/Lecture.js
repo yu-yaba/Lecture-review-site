@@ -1,15 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { useParams, Link, useNavigate } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import LectureNotFound from './LectureNotFound';
-import { success } from '../helpers/notifications';
 import { handleAjaxError } from '../helpers/helpers';
 
 
-const Lecture = ({ lectures, onDelete, }) => {
+const Lecture = ({ lectures }) => {
   const [reviews, setReviews] = useState([]);
   const { id } = useParams(); // useParamsでURLを取得し、分割代入でidを代入
-  const navigate = useNavigate();
   const lecture = lectures.find((e) => e.id === Number(id)); // findでidが一致するlectureを取得
 
 
@@ -32,26 +30,26 @@ const Lecture = ({ lectures, onDelete, }) => {
 
 
 
-  const deleteReview = async (reviewId) => {
-    const sure = window.confirm('Are you sure?');
+  // const deleteReview = async (reviewId) => {
+  //   const sure = window.confirm('Are you sure?');
 
-    if (sure) {
-      try {
-        const response = await window.fetch(`/api/events/${id}/reviews/${reviewId}`, {
-          method: 'DELETE',
-        });
+  //   if (sure) {
+  //     try {
+  //       const response = await window.fetch(`/api/events/${id}/reviews/${reviewId}`, {
+  //         method: 'DELETE',
+  //       });
 
-        if (!response.ok) throw Error(response.statusText);
+  //       if (!response.ok) throw Error(response.statusText);
 
-        success('Review Deleted!');
-        navigate('/lectures');
-        setReviews(reviews.filter(review => review.id !== reviewId)); // eventsから削除したイベントを除いた配列を作成
-        success('Review Deleted!');
-      } catch (error) {
-        handleAjaxError(error);
-      }
-    }
-  };
+  //       success('Review Deleted!');
+  //       navigate('/lectures');
+  //       setReviews(reviews.filter(review => review.id !== reviewId)); // eventsから削除したイベントを除いた配列を作成
+  //       success('Review Deleted!');
+  //     } catch (error) {
+  //       handleAjaxError(error);
+  //     }
+  //   }
+  // };
 
 
   if (!lecture) return <LectureNotFound />;
@@ -60,14 +58,6 @@ const Lecture = ({ lectures, onDelete, }) => {
     <div className='eventContainer'>
       <h2>
         {lecture.title}
-        <Link to={`/lectures/${lecture.id}/edit`}>Edit</Link>
-        <button
-          className="delete"
-          type="button"
-          onClick={() => onDelete(lecture.id)}
-        >
-          Delete
-        </button>
       </h2>
       <ul>
         <li>
@@ -91,7 +81,6 @@ const Lecture = ({ lectures, onDelete, }) => {
             <strong>内容</strong> {review.content_quality}
             <strong>コメント</strong> {review.content}
           </li>
-          <button type='button' onClick={() => deleteReview(review.id)}>Delete Review</button>
         </div>
       ))}
       <Link to="newReview">Add a review</Link>
@@ -109,7 +98,6 @@ Lecture.propTypes = {
       faculty: PropTypes.string.isRequired,
     })
   ).isRequired,
-  onDelete: PropTypes.func.isRequired,
 };
 
 export default Lecture;

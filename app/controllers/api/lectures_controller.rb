@@ -1,5 +1,5 @@
 class Api::LecturesController < ApplicationController
-  before_action :set_lecture, only: [:show, :update, :destroy]
+  before_action :set_lecture, only: [:show]
 
   # GET /lectures
   def index
@@ -21,20 +21,6 @@ class Api::LecturesController < ApplicationController
     else
       render json: @lecture.errors, status: :unprocessable_entity
     end
-  end
-
-  # PATCH/PUT /lectures/1
-  def update
-    if @lecture.update(lecture_params)
-      render json: @lecture
-    else
-      render json: @lecture.errors, status: :unprocessable_entity
-    end
-  end
-
-  # DELETE /lectures/1
-  def destroy
-    @lecture.destroy
   end
 
   private

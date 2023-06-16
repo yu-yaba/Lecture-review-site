@@ -48,60 +48,60 @@ const Editor = () => {
       const savedLecture = await response.json();
       const newLectures = [...lectures, savedLecture]; // 既存のLecturesに新しいイベントを追加し、新しい配列を作成
       setLectures(newLectures);
-      success('Lecture Added!');
+      success('授業を登録しました');
       navigate(`/lectures/${savedLecture.id}`);
     } catch (error) {
       handleAjaxError(error);
     }
   };
 
-  const deleteLecture = async (lectureId) => {
-    const sure = window.confirm('Are you sure?');
+  // const deleteLecture = async (lectureId) => {
+  //   const sure = window.confirm('Are you sure?');
 
-    if (sure) {
-      try {
-        const response = await window.fetch(`/api/lectures/${lectureId}`, {
-          method: 'DELETE',
-        });
+  //   if (sure) {
+  //     try {
+  //       const response = await window.fetch(`/api/lectures/${lectureId}`, {
+  //         method: 'DELETE',
+  //       });
 
-        if (!response.ok) throw Error(response.statusText);
+  //       if (!response.ok) throw Error(response.statusText);
 
-        success('Lecture Deleted!');
-        navigate('/lectures');
-        setLectures(lectures.filter(lecture => lecture.id !== lectureId)); // lecturesから削除したイベントを除いた配列を作成
-      } catch (error) {
-        handleAjaxError(error);
-      }
-    }
-  };
+  //       success('Lecture Deleted!');
+  //       navigate('/lectures');
+  //       setLectures(lectures.filter(lecture => lecture.id !== lectureId)); // lecturesから削除したイベントを除いた配列を作成
+  //     } catch (error) {
+  //       handleAjaxError(error);
+  //     }
+  //   }
+  // };
 
-  const updateLecture = async (updatedLecture) => {
-    try {
-      const response = await window.fetch(
-        `/api/lectures/${updatedLecture.id}`,
-        {
-          method: 'PUT',
-          body: JSON.stringify(updatedLecture),
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-          },
-        }
-      );
+  // const updateLecture = async (updatedLecture) => {
+  //   try {
+  //     const response = await window.fetch(
+  //       `/api/lectures/${updatedLecture.id}`,
+  //       {
+  //         method: 'PUT',
+  //         body: JSON.stringify(updatedLecture),
+  //         headers: {
+  //           Accept: 'application/json',
+  //           'Content-Type': 'application/json',
+  //         },
+  //       }
+  //     );
 
-      if (!response.ok) throw Error(response.statusText);
+  //     if (!response.ok) throw Error(response.statusText);
 
-      const newLecture = lectures;
-      const idx = newLecture.findIndex((lecture) => lecture.id === updatedLecture.id);
-      newLecture[idx] = updatedLecture;
-      setLectures(newLecture);
+  //     const newLecture = lectures;
+  //     const idx = newLecture.findIndex((lecture) => lecture.id === updatedLecture.id);
+  //     newLecture[idx] = updatedLecture;
+  //     setLectures(newLecture);
 
-      success('Lecture Updated!');
-      navigate(`/lectures/${updatedLecture.id}`);
-    } catch (error) {
-      handleAjaxError(error);
-    }
-  };
+  //     success('Lecture Updated!');
+  //     navigate(`/lectures/${updatedLecture.id}`);
+  //   } catch (error) {
+  //     handleAjaxError(error);
+  //   }
+  // };
 
   const addReview = async (reviewWithLectureId) => {
     try {
@@ -117,7 +117,7 @@ const Editor = () => {
   
       const savedReview = await response.json();
       setReviews([...reviews, savedReview]);
-      success('Review Added!');
+      success('レビューを登録しました');
       navigate(`/lectures/${reviewWithLectureId.lecture_id}`);
     } catch (error) {
       handleAjaxError(error);
@@ -138,8 +138,8 @@ const Editor = () => {
 
             <Routes>
               <Route path="new" element={<LectureForm onSave={addLecture} />} />
-              <Route path=":id/edit" element={<LectureForm lectures={lectures} onSave={updateLecture} />}/>
-              <Route path=":id/*" element={<Lecture lectures={lectures} reviews={reviews} addReview={addReview} onDelete={deleteLecture} />} />
+              <Route path=":id/edit" element={<LectureForm lectures={lectures} />}/>
+              <Route path=":id/*" element={<Lecture lectures={lectures} reviews={reviews} addReview={addReview} />} />
               <Route path=":id/newReview" element={<ReviewForm onSave={addReview} />} />
             </Routes>          
           </>
