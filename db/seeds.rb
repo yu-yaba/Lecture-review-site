@@ -1,24 +1,10 @@
 # いくつかの講義を作成します
-lecture1 = Lecture.create!(title: 'Introduction to Computer Science', lecturer: 'Prof. Alice', faculty: 'Engineering')
-lecture2 = Lecture.create!(title: 'Calculus 101', lecturer: 'Prof. Bob', faculty: 'Mathematics')
-lecture3 = Lecture.create!(title: 'Modern Art History', lecturer: 'Prof. Charlie', faculty: 'Arts')
-lecture4 = Lecture.create!(title: 'Quantum Physics', lecturer: 'Prof. David', faculty: 'Science')
-lecture5 = Lecture.create!(title: 'Classical Literature', lecturer: 'Prof. Emily', faculty: 'Literature')
+lecture1 = Lecture.create!(title: '経済学入門', lecturer: '小林', faculty: '経済科学部')
+lecture2 = Lecture.create!(title: 'プログラミング基礎', lecturer: '鈴木', faculty: '工学部')
 
 # 講義にレビューを追加します
 
 # それぞれの講義にレビューを追加します
-Review.create!(rating: 4, content: 'Great lecture!', lecture_id: lecture1.id)
-Review.create!(rating: 5, content: 'Very insightful and engaging.', lecture_id: lecture1.id)
+Review.create!(rating: 4, content: 'とても良い講義でした', period: '2023 1ターム', textbook: '必要', attendance: '毎回確認', grading_type: 'テストのみ', content_difficulty: '楽', content_quality: '普通', lecture_id: lecture1.id)
+Review.create!(rating: 5, content: '難しかったです', period: '2022 2ターム', textbook: '不要', attendance: 'たまに確認', grading_type: 'レポートのみ', content_difficulty: '普通', content_quality: '良い', lecture_id: lecture2.id)
 
-Review.create!(rating: 3, content: 'Difficult but worth it.', lecture_id: lecture2.id)
-Review.create!(rating: 2, content: 'The content was a bit too advanced for me.', lecture_id: lecture2.id)
-
-Review.create!(rating: 5, content: 'Incredibly interesting and well taught.', lecture_id: lecture3.id)
-Review.create!(rating: 3, content: 'I loved the course content, but the teaching was a bit dry.', lecture_id: lecture3.id)
-
-Review.create!(rating: 5, content: 'Challenging but fascinating!', lecture_id: lecture4.id)
-Review.create!(rating: 4, content: 'Highly technical, but Prof. David explains concepts clearly.', lecture_id: lecture4.id)
-
-Review.create!(rating: 4, content: 'Loved reading the classics in this course!', lecture_id: lecture5.id)
-Review.create!(rating: 5, content: 'Prof. Emily is an expert in her field and it shows.', lecture_id: lecture5.id)

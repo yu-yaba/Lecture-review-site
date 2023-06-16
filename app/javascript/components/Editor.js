@@ -139,7 +139,7 @@ const Editor = () => {
             <Routes>
               <Route path="new" element={<LectureForm onSave={addLecture} />} />
               <Route path=":id/edit" element={<LectureForm lectures={lectures} onSave={updateLecture} />}/>
-              <Route path=":id/*" element={<Lecture lectuzres={lectures} reviews={reviews} addReview={addReview} onDelete={deleteLecture} />} />
+              <Route path=":id/*" element={<Lecture lectures={lectures} reviews={reviews} addReview={addReview} onDelete={deleteLecture} />} />
               <Route path=":id/newReview" element={<ReviewForm onSave={addReview} />} />
             </Routes>          
           </>

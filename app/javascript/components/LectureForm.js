@@ -72,7 +72,7 @@ const LectureForm = ({ lectures, onSave }) => {
   }, [lectures, initialLectureState]);
 
   const cancelURL = lecture.id ? `/lectures/${lecture.id}` : '/lectures';
-  const title = lecture.id ? `${lecture.lecture_date} - ${lecture.lecture_type}` : 'New Lecture';
+  const title = lecture.id ? `${lecture.title}` : '新しく講義を登録';
 
   // URLにidがあるが、lectureが存在しない時にnotfoundページを表示する
   if (id && !lecture.id) return <LectureNotFound />;
@@ -84,20 +84,33 @@ const LectureForm = ({ lectures, onSave }) => {
       <form className="lectureForm" onSubmit={handleSubmit}>
         <div>
           <label htmlFor="title"> {/* inputのidと紐付け */}
-            <strong>Title:</strong>
+            <strong>授業名</strong>
             <input type='text' id="title" name="title" onChange={handleInputChange} value={lecture.title} />
           </label>
         </div>
         <div>
           <label htmlFor="lecturer">
-            <strong>lecturer:</strong>
+            <strong>教授/講師名</strong>
             <input type="text" id="lecturer" name="lecturer" onChange={handleInputChange} value={lecture.lecturer} />
           </label>
         </div>
         <div>
           <label htmlFor="faculty">
-            <strong>faculty:</strong>
-            <input type="text" id="faculty" name="faculty" onChange={handleInputChange} value={lecture.faculty} />
+            <strong>開講番号:学部</strong>
+            <select id="faculty" name="faculty" onChange={handleInputChange} value={lecture.faculty}>
+              <option value="">選択してください</option>
+              <option value="G: 教養科目">G: 教養科目</option>
+              <option value="H: 人文学部">H: 人文学部</option>
+              <option value="K: 教育学部">K: 教育学部</option>
+              <option value="L: 法学部">L: 法学部</option>
+              <option value="E: 経済科学部">E: 経済科学部</option>
+              <option value="S: 理学部">S: 理学部</option>
+              <option value="M: 医学部">M: 医学部</option>
+              <option value="D: 歯学部">D: 歯学部</option>
+              <option value="T: 工学部">T: 工学部</option>
+              <option value="A: 農学部">A: 農学部</option>
+              <option value="X: 創生学部">X: 創生学部</option>
+            </select>
           </label>
         </div>
         <div className="form-actions">

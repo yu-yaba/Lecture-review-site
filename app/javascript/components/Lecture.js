@@ -77,11 +77,20 @@ const Lecture = ({ lectures, onDelete, }) => {
           <strong>学部:</strong> {lecture.faculty}
         </li>
       </ul>
+      
 
       {reviews.map((review) => (
         <div key={review.id}>
-          <p>{review.content}</p>
-          <p>Rating: {review.rating}</p>
+          <li>
+            <strong>評価</strong> {review.rating}
+            <strong>受講時期</strong> {review.period}
+            <strong>教科書</strong> {review.textbook}
+            <strong>出席確認</strong> {review.attendance}
+            <strong>採点方法</strong> {review.grading_type}
+            <strong>難易度</strong> {review.content_difficulty}
+            <strong>内容</strong> {review.content_quality}
+            <strong>コメント</strong> {review.content}
+          </li>
           <button type='button' onClick={() => deleteReview(review.id)}>Delete Review</button>
         </div>
       ))}
