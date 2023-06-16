@@ -19,16 +19,6 @@ class Api::ReviewsController < ApplicationController
     end
   end
 
-  # DELETE /lectures/:lecture_id/reviews/:id
-  def destroy
-    @review = @lecture.reviews.find(params[:id])
-    if @review.destroy
-      head :no_content
-    else
-      render json: @review.errors, status: :unprocessable_entity
-    end
-  end
-
   private
 
   def set_lecture
