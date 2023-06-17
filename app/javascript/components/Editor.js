@@ -12,27 +12,26 @@ const Editor = () => {
   const [lectures, setLectures] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
-    // Add state for reviews
-    const [reviews, setReviews] = useState([]);    
+  // Add state for reviews
+  const [reviews, setReviews] = useState([]);
+
+  const [currentPage, setCurrentPage] = useState(1);
 
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // eslint-disable-next-line no-undef
-        const response = await window.fetch('/api/lectures');
+        const response = await window.fetch(`/api/lectures?page=${currentPage}&limit=60`);
         if (!response.ok) throw Error(response.statusText);
         const data = await response.json();
         setLectures(data);
       } catch (error) {
         handleAjaxError(error);
       }
-
       setIsLoading(false);
     };
-
     fetchData();
-  }, []);
+  }, [currentPage]);
 
   const addLecture = async (newLecture) => {
     try { // tryはエラーが起きる可能性のある処理を囲む
@@ -55,53 +54,6 @@ const Editor = () => {
     }
   };
 
-  // const deleteLecture = async (lectureId) => {
-  //   const sure = window.confirm('Are you sure?');
-
-  //   if (sure) {
-  //     try {
-  //       const response = await window.fetch(`/api/lectures/${lectureId}`, {
-  //         method: 'DELETE',
-  //       });
-
-  //       if (!response.ok) throw Error(response.statusText);
-
-  //       success('Lecture Deleted!');
-  //       navigate('/lectures');
-  //       setLectures(lectures.filter(lecture => lecture.id !== lectureId)); // lecturesから削除したイベントを除いた配列を作成
-  //     } catch (error) {
-  //       handleAjaxError(error);
-  //     }
-  //   }
-  // };
-
-  // const updateLecture = async (updatedLecture) => {
-  //   try {
-  //     const response = await window.fetch(
-  //       `/api/lectures/${updatedLecture.id}`,
-  //       {
-  //         method: 'PUT',
-  //         body: JSON.stringify(updatedLecture),
-  //         headers: {
-  //           Accept: 'application/json',
-  //           'Content-Type': 'application/json',
-  //         },
-  //       }
-  //     );
-
-  //     if (!response.ok) throw Error(response.statusText);
-
-  //     const newLecture = lectures;
-  //     const idx = newLecture.findIndex((lecture) => lecture.id === updatedLecture.id);
-  //     newLecture[idx] = updatedLecture;
-  //     setLectures(newLecture);
-
-  //     success('Lecture Updated!');
-  //     navigate(`/lectures/${updatedLecture.id}`);
-  //   } catch (error) {
-  //     handleAjaxError(error);
-  //   }
-  // };
 
   const addReview = async (reviewWithLectureId) => {
     try {
@@ -112,9 +64,9 @@ const Editor = () => {
           'Content-Type': 'application/json',
         },
       });
-  
+
       if (!response.ok) throw Error(response.statusText);
-  
+
       const savedReview = await response.json();
       setReviews([...reviews, savedReview]);
       success('レビューを登録しました');
@@ -123,7 +75,7 @@ const Editor = () => {
       handleAjaxError(error);
     }
   };
-    
+
   return (
     <>
       <Header />
@@ -131,17 +83,12 @@ const Editor = () => {
         {isLoading ? (
           <p className='loading'>Loading...</p>
         ) : (
-          <>
-            <Routes>
-              <Route path='/' element={<LectureList lectures={lectures} />} />
-            </Routes>
-
-            <Routes>
-              <Route path="new" element={<LectureForm onSave={addLecture} />} />
-              <Route path=":id/*" element={<Lecture lectures={lectures} reviews={reviews} addReview={addReview} />} />
-              <Route path=":id/newReview" element={<ReviewForm onSave={addReview} />} />
-            </Routes>          
-          </>
+          <Routes>
+            <Route path='/' element={<LectureList lectures={lectures} currentPage={currentPage} setCurrentPage={setCurrentPage} />} />
+            <Route path="new" element={<LectureForm onSave={addLecture} />} />
+            <Route path=":id/*" element={<Lecture lectures={lectures} reviews={reviews} addReview={addReview} />} />
+            <Route path=":id/newReview" element={<ReviewForm onSave={addReview} />} />
+          </Routes>
         )}
       </div>
     </>
