@@ -1,12 +1,18 @@
 import React, { useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { Link, NavLink } from 'react-router-dom';
+import Pagination from './Pagination';
 
 const LectureList = ({ lectures }) => {
   // searchTermでフォームの値を管理
   const [searchTerm, setSearchTerm] = useState('');
   // searchInputでフォームの初期値をnull
   const searchInput = useRef(null);
+  // 現在のページを管理
+  const [currentPage, setCurrentPage] = useState(1);
+
+  // 1ページあたりのレクチャー数
+  const lecturesPerPage = 20;
 
   const updateSearchTerm = () => {
     // useRef.currentで参照した値に更新
@@ -21,8 +27,19 @@ const LectureList = ({ lectures }) => {
     );
   };
 
-  const renderLectures = (lectureArray) => lectureArray
-      .filter((el) => matchSearchTerm(el))
+  const renderLectures = (lectureArray) => {
+    // filter out lectures based on searchTerm
+    const filteredLectures = lectureArray.filter((el) => matchSearchTerm(el));
+
+    // calculate total pages
+
+    // get current page lectures
+    const startIndex = (currentPage - 1) * lecturesPerPage;
+    const endIndex = startIndex + lecturesPerPage;
+    const currentPageLectures = filteredLectures.slice(startIndex, endIndex);
+
+    // render current page lectures
+    return currentPageLectures
       .sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at))
       .map((lecture) => (
         <li key={lecture.id}>
@@ -31,7 +48,7 @@ const LectureList = ({ lectures }) => {
           </NavLink>
         </li>
       ));
-  
+  };  
   return (
     <section className="lectureList">
       <h2>
@@ -48,6 +65,7 @@ const LectureList = ({ lectures }) => {
       />
 
       <ul>{renderLectures(lectures)}</ul>
+      <Pagination currentPage={currentPage} setCurrentPage={setCurrentPage} />
     </section>
   );
 };

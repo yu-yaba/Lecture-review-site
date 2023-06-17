@@ -3,10 +3,10 @@ class Api::LecturesController < ApplicationController
 
   # GET /lectures
   def index
-    @lectures = Lecture.all
+    @lectures = Lecture.page(params[:page]).per(params[:limit])
     render json: @lectures
   end
-
+  
   # GET /lectures/1
   def show
     render json: @lecture
