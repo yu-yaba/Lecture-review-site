@@ -73,7 +73,7 @@ const Lecture = ({ lectures }) => {
         <div key={review.id}>
           <li>
             <strong>評価</strong> {review.rating}
-            <strong>受講時期</strong> {review.period}
+            <strong>受講時期</strong> {review.period_year}{review.period_term}
             <strong>教科書</strong> {review.textbook}
             <strong>出席確認</strong> {review.attendance}
             <strong>採点方法</strong> {review.grading_type}

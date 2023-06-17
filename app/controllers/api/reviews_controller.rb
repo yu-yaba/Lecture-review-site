@@ -26,6 +26,6 @@ class Api::ReviewsController < ApplicationController
   end
 
   def review_params
-    params.require(:review).permit(:rating, :content, :period, :textbook, :attendance, :grading_type, :content_difficulty, :content_quality)
+    params.require(:review).permit(:rating, :content, :period_year, :period_term, :textbook, :attendance, :grading_type, :content_difficulty, :content_quality)
   end
   end

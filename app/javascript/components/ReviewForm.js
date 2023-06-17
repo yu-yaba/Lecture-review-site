@@ -9,7 +9,8 @@ const ReviewForm = ({ reviews, onSave }) => {
   const initialReviewState = () => {
     const defaults = {
       rating: '',
-      period: '',
+      period_year: '',
+      period_term: '',
       textbook: '',
       attendance: '',
       grading_type: '',
@@ -86,16 +87,17 @@ const ReviewForm = ({ reviews, onSave }) => {
           </label>
         </div>
         <div>
-          <label htmlFor="period">
+          {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+          <label>
             <strong>授業を受けた時期</strong>
-            <select id="period" name="period" onChange={handleInputChange} value={review.period}>
+            <select id="period_year" name="period_year" onChange={handleInputChange} value={review.period_year}>
               <option>2023</option>
               <option>2022</option>
               <option>2021</option>
               <option>2020</option>
             </select>
             <p>年</p>
-            <select id="period" name="period" onChange={handleInputChange} value={review.period}>
+            <select id="period_term" name="period_term" onChange={handleInputChange} value={review.period_term}>
               <option>選択してください</option>
               <option>1ターム</option>
               <option>2ターム</option>
@@ -187,7 +189,8 @@ ReviewForm.propTypes = {
     PropTypes.shape({
       id: PropTypes.number.isRequired,
       rating: PropTypes.number.isRequired,
-      period: PropTypes.string.isRequired,
+      period_year: PropTypes.string.isRequired,
+      period_term: PropTypes.string.isRequired,
       textbook: PropTypes.string.isRequired,
       attendance: PropTypes.string.isRequired,
       grading_type: PropTypes.string.isRequired,
