@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { Link, NavLink } from 'react-router-dom';
+import ReactStarsRating from 'react-awesome-stars-rating';
 import Pagination from './Pagination';
 
 const LectureList = ({ lectures }) => {
@@ -22,34 +23,33 @@ const LectureList = ({ lectures }) => {
   const matchSearchTerm = (obj) => {
     // eslint-disable-next-line camelcase
     const { id, created_at, updated_at, ...rest } = obj;
-    return Object.values(rest).some(
-      (value) => value.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1
+    return Object.values(rest).some((value) => 
+      value
+        .toString()  // Converts all values to string to avoid errors
+        .toLowerCase()
+        .indexOf(searchTerm.toLowerCase()) > -1
     );
   };
-
+  
   const renderLectures = (lectureArray) => {
-    // filter out lectures based on searchTerm
     const filteredLectures = lectureArray.filter((el) => matchSearchTerm(el));
 
-    // calculate total pages
 
-    // get current page lectures
     const startIndex = (currentPage - 1) * lecturesPerPage;
     const endIndex = startIndex + lecturesPerPage;
     const currentPageLectures = filteredLectures.slice(startIndex, endIndex);
 
-    // render current page lectures
     return currentPageLectures
-      .sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at))
-      .map((lecture) => (
+    .sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at))
+    .map((lecture) => (
         <li key={lecture.id}>
           <NavLink to={`/lectures/${lecture.id}`}>
             {lecture.title}
           </NavLink>
+          <ReactStarsRating value={lecture.avg_rating} isEdit={false} isHalf />
         </li>
       ));
-  };  
-  return (
+};  return (
     <section className="lectureList">
       <h2>
         授業一覧
@@ -76,6 +76,10 @@ LectureList.propTypes = {
     title: PropTypes.string,
     lecturer: PropTypes.string,
     faculty: PropTypes.string,
+    reviews: PropTypes.arrayOf(PropTypes.shape({
+      id: PropTypes.number,
+      rating: PropTypes.number,
+    })),
   })).isRequired,
 };
 

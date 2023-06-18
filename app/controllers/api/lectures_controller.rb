@@ -1,11 +1,19 @@
 class Api::LecturesController < ApplicationController
   before_action :set_lecture, only: [:show]
 
-  # GET /lectures
-  def index
-    @lectures = Lecture.page(params[:page]).per(params[:limit])
-    render json: @lectures
+# GET /lectures
+def index
+  @lectures = Lecture.page(params[:page]).per(params[:limit])
+
+  @lectures = @lectures.as_json 
+  @lectures.each do |lecture|
+    lecture_obj = Lecture.find(lecture["id"]) 
+    avg_rating = lecture_obj.reviews.average(:rating) || 0 
+    lecture[:avg_rating] = avg_rating.round(2) 
   end
+
+  render json: @lectures
+end
   
   # GET /lectures/1
   def show
@@ -24,12 +32,10 @@ class Api::LecturesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_lecture
       @lecture = Lecture.find(params[:id])
     end
 
-    # Only allow a trusted parameter "white list" through.
     def lecture_params
       params.require(:lecture).permit(:title, :lecturer, :faculty)
     end
