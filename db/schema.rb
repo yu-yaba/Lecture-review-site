@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_17_011616) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_18_051823) do
   create_table "lectures", force: :cascade do |t|
     t.string "title"
     t.string "lecturer"
@@ -20,7 +20,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_17_011616) do
   end
 
   create_table "reviews", force: :cascade do |t|
-    t.integer "rating"
+    t.float "rating"
     t.text "content"
     t.integer "lecture_id", null: false
     t.datetime "created_at", null: false

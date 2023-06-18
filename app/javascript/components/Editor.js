@@ -12,7 +12,6 @@ const Editor = () => {
   const [lectures, setLectures] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
-  // Add state for reviews
   const [reviews, setReviews] = useState([]);
 
   const [currentPage, setCurrentPage] = useState(1);

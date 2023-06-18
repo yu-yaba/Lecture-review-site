@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useParams, Link } from 'react-router-dom';
+import ReactStarsRating from 'react-awesome-stars-rating';
 import LectureNotFound from './LectureNotFound';
 import { handleAjaxError } from '../helpers/helpers';
 
 
+
 const Lecture = ({ lectures }) => {
-  const [reviews, setReviews] = useState([]);
+  const [reviews, setReviews] = useState({ reviews: [], avgRating: 0 });
   const { id } = useParams(); // useParamsでURLを取得し、分割代入でidを代入
   const lecture = lectures.find((e) => e.id === Number(id)); // findでidが一致するlectureを取得
 
@@ -18,7 +20,8 @@ const Lecture = ({ lectures }) => {
         const response = await fetch(`/api/lectures/${id}/reviews`);
         if (!response.ok) throw Error(response.statusText);
         const data = await response.json();
-        setReviews(data);
+        const avgRating = data.reduce((total, review) => total + review.rating, 0) / data.length;
+        setReviews({ reviews: data, avgRating });
       } catch (error) {
         handleAjaxError(error);
       }
@@ -30,27 +33,6 @@ const Lecture = ({ lectures }) => {
 
 
 
-  // const deleteReview = async (reviewId) => {
-  //   const sure = window.confirm('Are you sure?');
-
-  //   if (sure) {
-  //     try {
-  //       const response = await window.fetch(`/api/events/${id}/reviews/${reviewId}`, {
-  //         method: 'DELETE',
-  //       });
-
-  //       if (!response.ok) throw Error(response.statusText);
-
-  //       success('Review Deleted!');
-  //       navigate('/lectures');
-  //       setReviews(reviews.filter(review => review.id !== reviewId)); // eventsから削除したイベントを除いた配列を作成
-  //       success('Review Deleted!');
-  //     } catch (error) {
-  //       handleAjaxError(error);
-  //     }
-  //   }
-  // };
-
 
   if (!lecture) return <LectureNotFound />;
 
@@ -58,6 +40,7 @@ const Lecture = ({ lectures }) => {
     <div className='eventContainer'>
       <h2>
         {lecture.title}
+        <ReactStarsRating value={reviews.avgRating} isEdit={false} isHalf />
       </h2>
       <ul>
         <li>
@@ -67,12 +50,16 @@ const Lecture = ({ lectures }) => {
           <strong>学部:</strong> {lecture.faculty}
         </li>
       </ul>
-      
 
-      {reviews.map((review) => (
+
+      {reviews.reviews && reviews.reviews.map((review) => (
         <div key={review.id}>
           <li>
-            <strong>評価</strong> {review.rating}
+            <ReactStarsRating
+              value={review.rating}
+              isEdit={false} // ユーザーが評価を編集できないようにする
+              isHalf
+            />
             <strong>受講時期</strong> {review.period_year}{review.period_term}
             <strong>教科書</strong> {review.textbook}
             <strong>出席確認</strong> {review.attendance}

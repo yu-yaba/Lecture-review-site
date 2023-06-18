@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useParams, Link } from 'react-router-dom';
+import ReactStarsRating from 'react-awesome-stars-rating';
 import { isEmptyObject, validateReview } from '../helpers/helpers';
+
 
 const ReviewForm = ({ reviews, onSave }) => {
   const { id } = useParams();
 
   const initialReviewState = () => {
     const defaults = {
-      rating: '',
+      rating: 0,
       period_year: '',
       period_term: '',
       textbook: '',
@@ -22,7 +24,7 @@ const ReviewForm = ({ reviews, onSave }) => {
     return { ...defaults };
   };
 
-  const [review, setReview] = useState(initialReviewState()); // Call the function to get the actual value
+  const [review, setReview] = useState(initialReviewState()); 
   const [formErrors, setFormErrors] = useState({});
 
   const updateReview = (key, value) => {
@@ -55,25 +57,32 @@ const ReviewForm = ({ reviews, onSave }) => {
     );
   };
 
-  const handleSubmit = (e) => {
+
+  useEffect(() => {
+    setReview(initialReviewState());
+  }, [reviews, id]); 
+
+  const cancelURL = `/lectures/${id}`;
+  const title = review.id ? `${review.review_date} - ${review.review_type}` : '授業レビューを投稿する';
+
+  const [value, setvalue] = useState(3);
+
+  const starOnChange = (newValue) => {
+    setvalue(newValue);
+    setReview({...review, rating: newValue});
+  };
+      
+    const handleSubmit = (e) => {
     e.preventDefault();
     const errors = validateReview(review); // errorsにエラーメッセージを格納
 
     if (!isEmptyObject(errors)) { // errorsが空でない場合はエラーメッセージを表示
       setFormErrors(errors);
     } else {
-      onSave({ ...review, lecture_id: id });
+      onSave({ ...review, lecture_id: id, ratting: value });
     }
   };
 
-  useEffect(() => {
-    setReview(initialReviewState());
-  }, [reviews, id]); // Only re-run the effect if reviews or id changes
-
-  const cancelURL = `/lectures/${id}`;
-  const title = review.id ? `${review.review_date} - ${review.review_type}` : '授業レビューを投稿する';
-
-  // URLにidがあるが、reviewが存在しない時にnotfoundページを表示する
 
   return (
     <section>
@@ -83,7 +92,12 @@ const ReviewForm = ({ reviews, onSave }) => {
         <div>
           <label htmlFor="rating"> {/* inputのidと紐付け */}
             <strong>評価</strong>
-            <input type='text' id="rating" name="rating" onChange={handleInputChange} value={review.rating} />
+            <ReactStarsRating
+              onChange={starOnChange}
+              value={review.rating}
+              isEdit
+              isHalf
+            />
           </label>
         </div>
         <div>
