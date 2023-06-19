@@ -4,6 +4,7 @@ import { useParams, Link } from 'react-router-dom';
 import ReactStarsRating from 'react-awesome-stars-rating';
 import LectureNotFound from './LectureNotFound';
 import { handleAjaxError } from '../helpers/helpers';
+import './Lecture.module.css';
 
 
 
@@ -37,10 +38,12 @@ const Lecture = ({ lectures }) => {
   if (!lecture) return <LectureNotFound />;
 
   return (
-    <div className='eventContainer'>
-      <h2>
+    <div className='lectureContainer'>
+      <h2 className='lectureTitle'>
         {lecture.title}
-        <ReactStarsRating value={reviews.avgRating} isEdit={false} isHalf />
+        <div className='titleStar'>
+          <ReactStarsRating value={reviews.avgRating} isEdit={false} isHalf className="star" />
+        </div>
       </h2>
       <ul>
         <li>

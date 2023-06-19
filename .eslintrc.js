@@ -10,8 +10,10 @@ module.exports = {
     'no-console': 0,
     "import/no-extraneous-dependencies": ["error", {"devDependencies": true}],
     'no-alert': 0,
-    "react-hooks/exhaustive-deps": "warn"
-  },
+    'no-use-before-define': 'off',
+    "react/no-unknown-property": "off",
+    "react/prop-types": "error"
+    },
   "env": {
     "browser": true,
     "jquery" : true
