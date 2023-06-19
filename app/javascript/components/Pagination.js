@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from 'prop-types';
+import "./Pagination.css";
 
 const MAX_PAGE_NUMBERS = 5;
 const MAX_PAGES = 20;
@@ -45,6 +46,7 @@ const Pagination = ({
             key={pageNumber}
             onClick={() => handleSetPage(pageNumber)}
             disabled={pageNumber === currentPage}
+            className={pageNumber === currentPage ? "currentPage" : ''}
           >
             {pageNumber}
           </button>

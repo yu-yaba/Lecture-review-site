@@ -1,0 +1,61 @@
+.title {
+  padding: 220;
+  font-size: 50px;
+}
+
+.lectureList {
+  text-align: center;
+}
+
+.search {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin: 0 20px;
+  width: 20%;
+  box-shadow: 1px 1px 1px #ccc;
+}
+
+.search:focus {
+  outline: 2px solid #1dbe67;
+}
+
+.navBar {
+  display: flex;
+  margin: 10 40;
+  justify-content: center;
+  width:  100%;
+}
+
+.navContainer {
+  display: flex;
+  justify-content: center;
+}
+
+.addButton {
+  margin-top: 6px;
+  margin-left: 20px;
+}
+
+.lectureList {
+  list-style: none;
+  margin-top: 40px;
+}
+
+.lecture {
+  margin: 20px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: 1px 1px 1px #ccc;
+  display: inline-block;
+  width: 40%;
+}
+
+.lecture:hover {
+  background-color: #E6FFE6;
+  color: #000;
+  transform: scale(1.05);
+}
+

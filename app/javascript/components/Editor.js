@@ -7,6 +7,7 @@ import LectureForm from './LectureForm';
 import { success } from '../helpers/notifications';
 import { handleAjaxError } from '../helpers/helpers';
 import ReviewForm from './ReviewForm';
+import './Editor.module.css';
 
 const Editor = () => {
   const [lectures, setLectures] = useState([]);
@@ -77,8 +78,10 @@ const Editor = () => {
 
   return (
     <>
-      <Header />
-      <div className="grid">
+      <div > 
+        <Header />
+      </div>
+      <div>
         {isLoading ? (
           <p className='loading'>Loading...</p>
         ) : (
@@ -95,3 +98,5 @@ const Editor = () => {
 };
 
 export default Editor;
+
+
