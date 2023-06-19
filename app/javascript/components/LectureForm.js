@@ -46,7 +46,7 @@ const LectureForm = ({ lectures, onSave }) => {
 
     return (
       <div className="errors">
-        <h3>The following errors prohibited the lecture from being saved:</h3>
+        <h3>空欄があります</h3>
         <ul>
           {Object.values(formErrors).map((formError) => (
             <li key={formError}>{formError}</li>

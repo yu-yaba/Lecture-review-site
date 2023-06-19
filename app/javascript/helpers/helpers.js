@@ -8,15 +8,15 @@ export const validateLecture = (lecture) => {
   const errors = {}; // 空のオブジェクトを作成し、エラーがある場合にエラーメッセージを格納する
 
   if (lecture.title === '') {
-    errors.title = 'You must enter a title';
+    errors.title = '授業名を入力してください';
   }
 
   if (lecture.lecturer === '') {
-    errors.lecturer = 'You must enter at least one le.lecturer';
+    errors.lecturer = '教授/講師名を入力してください';
   }
 
   if (lecture.faculty === '') {
-    errors.faculty = 'You must enter at least one faculty';
+    errors.faculty = '開講番号:学部を入力してください';
   }
 
   return errors;
@@ -26,35 +26,35 @@ export const validateReview = (review) => {
   const errors = {}; // 空のオブジェクトを作成し、エラーがある場合にエラーメッセージを格納する
 
   if (review.rating === '') {
-    errors.rating = 'You must enter a rating';
+    errors.rating = '評価を入力してください';
   }
 
   if (review.period === '') {
-    errors.period = 'You must enter at least one le.period';
+    errors.period = '授業を受講した時期を入力してください';
   }
 
   if (review.textbook === '') {
-    errors.textbook = 'You must enter textbook';
+    errors.textbook = '教科書の有無を入力してください';
   }
 
   if (review.attendance === '') {
-    errors.attendance = 'You must enter a attendance';
+    errors.attendance = '出席確認の有無を入力してください';
   }
 
   if (review.grading_type === '') {
-    errors.grading_type = 'You must enter a grading_type';
+    errors.grading_type = '採点方法を入力してください';
   }
 
   if (review.content_difficulty === '') {
-    errors.content_difficulty = 'You must enter a content_difficulty';
+    errors.content_difficulty = '単位取得の難易度を入力してください';
   }
   
   if (review.content_quality === '') {
-    errors.content_quality = 'You must enter a content_quality';
+    errors.content_quality = '内容の充実度を入力してください';
   }
 
   if (review.content === '') {
-    errors.content = 'You must enter a content';
+    errors.content = 'コメントを入力してください';
   }
 
 
