@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { useParams, Link } from 'react-router-dom';
 import ReactStarsRating from 'react-awesome-stars-rating';
 import { isEmptyObject, validateReview } from '../helpers/helpers';
-
+import './ReviewForm.module.css';
 
 const ReviewForm = ({ reviews, onSave }) => {
   const { id } = useParams();
@@ -86,12 +86,12 @@ const ReviewForm = ({ reviews, onSave }) => {
 
   return (
     <section>
-      <h2>{title}</h2>
+      <h2 className='formTitle'>{title}</h2>
       {renderErrors()}
-      <form className="ReviewForm" onSubmit={handleSubmit}>
-        <div>
+      <form className="lectureForm" onSubmit={handleSubmit}>
+        <div className='eachForm'>
           <label htmlFor="rating"> {/* inputのidと紐付け */}
-            <strong>評価</strong>
+            <p>評価</p>
             <ReactStarsRating
               onChange={starOnChange}
               value={review.rating}
@@ -100,10 +100,10 @@ const ReviewForm = ({ reviews, onSave }) => {
             />
           </label>
         </div>
-        <div>
+        <div className='eachForm'>
           {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
           <label>
-            <strong>授業を受けた時期</strong>
+            <p>授業を受けた時期</p>
             <select id="period_year" name="period_year" onChange={handleInputChange} value={review.period_year}>
               <option>2023</option>
               <option>2022</option>
@@ -122,9 +122,9 @@ const ReviewForm = ({ reviews, onSave }) => {
             </select>
           </label>
         </div>
-        <div>
+        <div className='eachForm'>
           <label htmlFor="textbook">
-            <strong>教科書</strong>
+            <p>教科書</p>
             <select id="textbook" name="textbook" onChange={handleInputChange} value={review.textbook}>
               <option>選択してください</option>
               <option>必要</option>
@@ -132,9 +132,9 @@ const ReviewForm = ({ reviews, onSave }) => {
             </select>
           </label>
         </div>
-        <div>
+        <div className='eachForm'>
           <label htmlFor="attendance">
-            <strong>出席確認</strong>
+            <p>出席確認</p>
             <select id="attendance" name="attendance" onChange={handleInputChange} value={review.attendance}>
               <option>選択してください</option>
               <option>毎回確認</option>
@@ -143,9 +143,9 @@ const ReviewForm = ({ reviews, onSave }) => {
             </select>
           </label>
         </div>
-        <div>
+        <div className='eachForm'>
           <label htmlFor="grading_type">
-            <strong>採点方法</strong>
+            <p>採点方法</p>
             <select id="grading_type" name="grading_type" onChange={handleInputChange} value={review.grading_type}>
               <option>選択してください</option>
               <option>テストのみ</option>
@@ -155,9 +155,9 @@ const ReviewForm = ({ reviews, onSave }) => {
             </select>
           </label>
         </div>
-        <div>
+        <div className='eachForm'>
           <label htmlFor="content_difficulty">
-            <strong>単位取得難易度</strong>
+            <p>単位取得難易度</p>
             <select id='content_difficulty' name='content_difficulty' onChange={handleInputChange} value={review.content_difficulty}>
               <option>選択してください</option>
               <option>とても楽</option>
@@ -168,9 +168,9 @@ const ReviewForm = ({ reviews, onSave }) => {
             </select>
           </label>
         </div>
-        <div>
+        <div className='eachForm'>
           <label htmlFor="content_quality">
-            <strong>内容充実度</strong>
+            <p>内容充実度</p>
             <select id='content_quality' name='content_quality' onChange={handleInputChange} value={review.content_quality}>
               <option>選択してください</option>
               <option>とても良い</option>
@@ -181,15 +181,15 @@ const ReviewForm = ({ reviews, onSave }) => {
             </select>
           </label>
         </div>
-        <div>
+        <div className='eachForm'>
           <label htmlFor="content">
-            <strong>コメント</strong>
+            <p>コメント</p>
             <textarea cols="30" rows="5" id="content" name="content" onChange={handleInputChange} value={review.content} />
           </label>
         </div>
         <div className="form-actions">
-          <button type="submit">Save</button>
-          <Link to={cancelURL}>Cancel</Link>
+          <button type="submit">レビューを投稿する</button>
+          <Link to={cancelURL}><button type='button' className='cancelButton'>キャンセル</button></Link>
         </div>
       </form>
     </section>

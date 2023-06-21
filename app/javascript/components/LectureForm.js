@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { useParams, Link } from 'react-router-dom';
 import { isEmptyObject, validateLecture } from '../helpers/helpers';
 import LectureNotFound from './LectureNotFound';
+import './LectureForm .module.css';
 
 const LectureForm = ({ lectures, onSave }) => {
   const { id } = useParams();
@@ -79,24 +80,24 @@ const LectureForm = ({ lectures, onSave }) => {
 
   return (
     <section>
-      <h2>{title}</h2>
+      <h2 className='formTitle'>{title}</h2>
       {renderErrors()}
-      <form className="lectureForm" onSubmit={handleSubmit}>
-        <div>
+      <form  onSubmit={handleSubmit} className='lectureForm'>
+        <div className='eachForm'>
           <label htmlFor="title"> {/* inputのidと紐付け */}
-            <strong>授業名</strong>
-            <input type='text' id="title" name="title" onChange={handleInputChange} value={lecture.title} />
+            <p>授業名</p>
+            <input type='text' id="title" name="title" placeholder='入力してください' onChange={handleInputChange} value={lecture.title} />
           </label>
         </div>
-        <div>
+        <div className='eachForm'>
           <label htmlFor="lecturer">
-            <strong>教授/講師名</strong>
-            <input type="text" id="lecturer" name="lecturer" onChange={handleInputChange} value={lecture.lecturer} />
+            <p>教授/講師名</p>
+            <input type="text" id="lecturer" name="lecturer" placeholder='入力してください' onChange={handleInputChange} value={lecture.lecturer} />
           </label>
         </div>
-        <div>
+        <div className='eachForm'>
           <label htmlFor="faculty">
-            <strong>開講番号:学部</strong>
+            <p>開講番号:学部</p>
             <select id="faculty" name="faculty" onChange={handleInputChange} value={lecture.faculty}>
               <option value="">選択してください</option>
               <option value="G: 教養科目">G: 教養科目</option>
@@ -114,8 +115,8 @@ const LectureForm = ({ lectures, onSave }) => {
           </label>
         </div>
         <div className="form-actions">
-          <button type="submit">Save</button>
-          <Link to={cancelURL}>Cancel</Link>
+          <button type="submit">登録</button>
+          <Link to={cancelURL}><button type='button' className='cancelButton'>キャンセル</button></Link>
         </div>
       </form>
     </section>

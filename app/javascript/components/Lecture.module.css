@@ -8,5 +8,73 @@
 }
 
 .titleStar {
-  margin-left: 10px;
+  display: flex;
+  align-items: center;
 }
+
+.lectureHeader {
+  display: flex;
+}
+
+.lectureAvg {
+  display: flex;
+  align-items: center;
+  font-size: 2em;
+  color: #FFC107;
+}
+
+.lectureInfo {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-left: 30px;
+  list-style: none;
+  margin-top: 0;
+  margin-bottom: 30;
+}
+
+.lectureReview {
+  list-style: none;
+  margin-top: 30;
+}
+
+.eachReview {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 40%;
+  
+  strong {
+    display: flex;
+  }
+}
+
+.reviewContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 50px 90px;
+}
+
+.addReview {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 40%;
+  margin: 50px 90px;
+}
+
+.addReview button {
+  border: solid 2px;
+  font-size: 1.2em;
+  font-weight: bold;
+  color: #1dbe67;
+  padding: 10px 20px;
+  border-radius: 10px;
+}
+
+.addReview button:hover {
+  background-color: #1dbe67;
+  color: white;
+}
+
