@@ -46,20 +46,24 @@
   font-weight: bold;
   color: #1dbe67;
   background-color: white;
-  padding: 10px 20px;
+  padding: 10px 15px;
   border-radius: 10px;
 
 }
 
 .lectureForm button {
-  margin: 1.5rem 2rem;
+  margin: 1.5rem ;
   border: solid 2px;
   font-size: 1.2em;
   font-weight: bold;
   color: white;
   background-color: #1dbe67;
-  padding: 10px 20px;
+  padding: 10px 15px;
   border-radius: 10px;
+}
+
+.buttonContainer {
+  display: flex;
 }
 
 .errors {
