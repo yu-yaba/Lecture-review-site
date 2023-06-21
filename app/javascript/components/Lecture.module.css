@@ -23,7 +23,7 @@
   color: #FFC107;
 }
 
-.lectureInfo {
+.lectureContainer .lectureInfo {
   display: flex;
   flex-direction: column;
   justify-content: center;

@@ -49,6 +49,10 @@ const LectureList = ({ lectures }) => {
         <NavLink to={`/lectures/${lecture.id}`} className='lecture'>
           <li key={lecture.id} >
             <h2>{lecture.title}</h2>
+            <div className='lectureInfo'>
+              <p>{lecture.lecturer}</p>
+              <p>{lecture.faculty}</p>
+            </div>
             <ReactStarsRating value={lecture.avg_rating} isEdit={false} isHalf />
           </li>
         </NavLink>
