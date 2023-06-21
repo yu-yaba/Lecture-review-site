@@ -39,13 +39,16 @@ const Lecture = ({ lectures }) => {
 
   return (
     <div className='lectureContainer'>
-      <h2 className='lectureTitle'>
-        {lecture.title}
+      <div className='lectureHeader'>
+        <h2 className='lectureTitle'>
+          {lecture.title}
+        </h2>
+        <h2 className='lectureAvg'>{reviews.avgRating}</h2>
         <div className='titleStar'>
           <ReactStarsRating value={reviews.avgRating} isEdit={false} isHalf className="star" />
         </div>
-      </h2>
-      <ul>
+      </div>
+      <ul className='lectureInfo'>
         <li>
           <strong>教員:</strong> {lecture.lecturer}
         </li>
@@ -56,24 +59,27 @@ const Lecture = ({ lectures }) => {
 
 
       {reviews.reviews && reviews.reviews.map((review) => (
-        <div key={review.id}>
-          <li>
-            <ReactStarsRating
-              value={review.rating}
-              isEdit={false} // ユーザーが評価を編集できないようにする
-              isHalf
-            />
-            <strong>受講時期</strong> {review.period_year}{review.period_term}
-            <strong>教科書</strong> {review.textbook}
-            <strong>出席確認</strong> {review.attendance}
-            <strong>採点方法</strong> {review.grading_type}
-            <strong>難易度</strong> {review.content_difficulty}
-            <strong>内容</strong> {review.content_quality}
-            <strong>コメント</strong> {review.content}
-          </li>
+        <div key={review.id} className='lectureReview'>
+          <div className='reviewContainer'>
+            <li className='eachReview'>
+              <ReactStarsRating
+                value={review.rating}
+                isEdit={false} // ユーザーが評価を編集できないようにする
+                isHalf
+              />
+              <p><strong>受講時期</strong> {review.period_year}{review.period_term} </p>
+              <p><strong>教科書</strong> {review.textbook}</p>
+              <p><strong>出席確認</strong> {review.attendance}</p>
+              <p><strong>採点方法</strong> {review.grading_type}</p>
+              <p><strong>難易度</strong> {review.content_difficulty}</p>
+              <p><strong>内容</strong> {review.content_quality}</p>
+              <p><strong>コメント</strong> {review.content}</p>
+            </li>
+
+          </div>
         </div>
       ))}
-      <Link to="newReview">Add a review</Link>
+      <Link to="newReview" className='addReview'><button type='button'>レビューする</button></Link>
 
     </div>
   );

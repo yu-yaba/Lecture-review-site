@@ -32,7 +32,7 @@ const Pagination = ({
   };
 
   return (
-    <div>
+    <div className="pagination">
       <button type="button" onClick={handlePrevious} disabled={currentPage === 1}>
         {"<<"}
       </button>

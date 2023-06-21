@@ -1,4 +1,4 @@
-button {
+.pagination button {
   border: none;
   border-radius: 7px;
   padding: 16px 24px;
@@ -12,13 +12,13 @@ button {
   font-size: 1.4em;
 }
 
-button:hover {
+.pagination button:hover {
   background-color: #E6FFE6;
   color: #1dbe67;
   transform: scale(1.3);
 }
 
-.currentPage {
+.pagination .currentPage {
   background-color: #1dbe67;
   color: white;
 }
