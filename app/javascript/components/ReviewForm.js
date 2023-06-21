@@ -187,8 +187,8 @@ const ReviewForm = ({ reviews, onSave }) => {
             <textarea cols="30" rows="5" id="content" name="content" onChange={handleInputChange} value={review.content} />
           </label>
         </div>
-        <div className="form-actions">
-          <button type="submit">レビューを投稿する</button>
+        <div className="buttonContainer">
+          <button type="submit">投稿する</button>
           <Link to={cancelURL}><button type='button' className='cancelButton'>キャンセル</button></Link>
         </div>
       </form>
