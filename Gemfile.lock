@@ -142,6 +142,7 @@ GEM
       racc (~> 1.4)
     nokogiri (1.15.2-x86_64-linux)
       racc (~> 1.4)
+    pg (1.5.3)
     public_suffix (5.0.1)
     puma (5.6.5)
       nio4r (~> 2.0)
@@ -234,11 +235,12 @@ DEPENDENCIES
   jbuilder
   jsbundling-rails
   kaminari
+  pg
   puma (~> 5.0)
   rails (~> 7.0.2, >= 7.0.2.3)
   selenium-webdriver
   sprockets-rails
-  sqlite3 (~> 1.4)
+  sqlite3
   stimulus-rails
   turbo-rails
   tzinfo-data
