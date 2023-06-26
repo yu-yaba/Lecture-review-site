@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from 'prop-types';
 import "./Pagination.css";
 
-const MAX_PAGE_NUMBERS = 5;
+const MAX_PAGE_NUMBERS = 3;
 const MAX_PAGES = 20;
 
 const Pagination = ({

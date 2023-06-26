@@ -2,6 +2,7 @@
   "name": "app",
   "private": "true",
   "scripts": {
+    "start": "react-scripts start",
     "build": "esbuild app/javascript/*.* --bundle --sourcemap --loader:.js=jsx --outdir=app/assets/builds --public-path=assets",
     "watch": "esbuild app/javascript/*.* --watch --bundle --outdir=app/assets/builds --loader:.js=jsx",
     "lint": "eslint app/javascript",
@@ -20,6 +21,7 @@
     "react-icons": "^4.9.0",
     "react-paginate": "^8.2.0",
     "react-router-dom": "^6.12.1",
+    "react-scripts": "^5.0.1",
     "react-toastify": "^9.1.3",
     "yarn": "^1.22.19"
   },
