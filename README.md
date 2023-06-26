@@ -1,25 +1,2 @@
-# README
-
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-# Lecture-review-site
+開発途中ではありますが、こちらがURLになります。　プレリリースをして修正、データをある程度集めて1ヶ月ほどでリリースを予定しています
+## https://niigata-univ-lecture-review-5a3fbbeb0fc7.herokuapp.com/lectures
