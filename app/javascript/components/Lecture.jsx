@@ -9,7 +9,7 @@ import './Lecture.module.css';
 
 
 const Lecture = ({ lectures }) => {
-  const [reviews, setReviews] = useState({ reviews: [], avgRating: 0 });
+  const [reviews, setReviews] = useState({ reviews: [], avgRating: "" });
   const { id } = useParams(); // useParamsでURLを取得し、分割代入でidを代入
   const lecture = lectures.find((e) => e.id === Number(id)); // findでidが一致するlectureを取得
 
@@ -21,20 +21,19 @@ const Lecture = ({ lectures }) => {
         const response = await fetch(`/api/lectures/${id}/reviews`);
         if (!response.ok) throw Error(response.statusText);
         const data = await response.json();
-        const avgRating = data.reduce((total, review) => total + review.rating, 0) / data.length;
+        let avgRating = "";
+        if (data.length > 0) {
+          avgRating = data.reduce((total, review) => total + review.rating, 0) / data.length;
+        }
         setReviews({ reviews: data, avgRating });
       } catch (error) {
         handleAjaxError(error);
       }
     };
-
+  
     fetchReviews();
   }, [id]);
-
-
-
-
-
+  
   if (!lecture) return <LectureNotFound />;
 
   return (

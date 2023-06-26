@@ -22,3 +22,9 @@
   background-color: #1dbe67;
   color: white;
 }
+
+.pagination {
+  display: flex;
+  justify-content: center;
+
+}

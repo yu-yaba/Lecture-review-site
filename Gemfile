@@ -10,6 +10,8 @@ gem "rails", "~> 7.0.2", ">= 7.0.2.3"
 gem "sprockets-rails"
 
 # Use sqlite3 as the database for Active Record
+# gem "sqlite3", "~> 1.4"
+
 
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", "~> 5.0"
@@ -52,6 +54,7 @@ gem "kaminari"
 # gem "image_processing", "~> 1.2"
 
 group :development, :test do
+  gem 'sqlite3'
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "sqlite3", "~> 1.4"
   gem "debug", platforms: %i[ mri mingw x64_mingw ]
@@ -76,5 +79,6 @@ group :test do
 end
 
 group :production do
-  gem 'pg', '1.1.4'
+  gem 'pg'
 end
+
