@@ -5,9 +5,16 @@ import './Header.module.css';
 
 const Header = () => (
   <header>
-    <Link to='/lectures/'>
-      <h2 className="title">新潟大学授業レビュー</h2>
+    <Link to='/lectures/' className='header'>
+      <div className='header'>
+        <img src="/white-title.png" alt='title' />
+      </div>
+      <Link to="/lectures/new" className='addButton'>
+        <button type='button'>授業を登録</button>
+      </Link>
+
     </Link>
+
   </header>
 );
 

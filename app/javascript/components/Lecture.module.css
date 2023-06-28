@@ -44,9 +44,6 @@
   justify-content: center;
   width: 70%;
   
-  strong {
-    display: flex;
-  }
 }
 
 .reviewContainer {

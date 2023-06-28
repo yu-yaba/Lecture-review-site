@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import Header from './Header';
+import Footer from './Footer';
 import LectureList from './LectureList';
 import Lecture from './Lecture';
 import LectureForm from './LectureForm';
+import PrivacyPolicy from './PrivacyPolicy';
+import TermsOfService from './TermsOfService';
 import { success } from '../helpers/notifications';
 import { handleAjaxError } from '../helpers/helpers';
 import ReviewForm from './ReviewForm';
@@ -90,8 +93,13 @@ const Editor = () => {
             <Route path="new" element={<LectureForm onSave={addLecture} />} />
             <Route path=":id/*" element={<Lecture lectures={lectures} reviews={reviews} addReview={addReview} />} />
             <Route path=":id/newReview" element={<ReviewForm onSave={addReview} />} />
+            <Route path="privacy" element={<PrivacyPolicy />} />
+            <Route path="terms" element={<TermsOfService />} />
           </Routes>
         )}
+      </div>
+      <div>
+        <Footer/>
       </div>
     </>
   );
