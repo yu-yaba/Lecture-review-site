@@ -1,0 +1,1 @@
+origins /localhost\:\d+/, /niigata-univ-lecture-review-704491010a71.herokuapp.com/
