@@ -7,8 +7,8 @@ const Footer = () => (
   <footer>
     <div className='contract'>
       <p>お問い合わせ</p>
-      <Link to="/privacy">利用規約</Link>
-      <Link to="/terms">プライバシーポリシー</Link>
+      <Link to="/lectures/terms">利用規約</Link>
+      <Link to="/lectures/policy">プライバシーポリシー</Link>
     </div>
     <div className='copyRight'>
       <img src='/green-title.png' alt='footer-title' />
