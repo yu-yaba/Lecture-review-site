@@ -93,8 +93,8 @@ const Editor = () => {
             <Route path="new" element={<LectureForm onSave={addLecture} />} />
             <Route path=":id/*" element={<Lecture lectures={lectures} reviews={reviews} addReview={addReview} />} />
             <Route path=":id/newReview" element={<ReviewForm onSave={addReview} />} />
-            <Route path="privacy" element={<PrivacyPolicy />} />
-            <Route path="terms" element={<TermsOfService />} />
+            <Route path="/policy" element={<PrivacyPolicy />} />
+            <Route path="/terms" element={<TermsOfService />} />
           </Routes>
         )}
       </div>
