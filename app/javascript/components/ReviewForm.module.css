@@ -5,61 +5,13 @@
 }
 
 .formTitle {
-  font-size: 1.7rem;
-  margin: 1.3rem 3rem;
+  font-size: 170%;
+  margin-left: 3rem;
+  margin-top: 3rem;
+  margin-right: 1.5rem;
 }
 
-.eachForm {
-  margin: 1rem;
-  justify-content: start;
-  text-align: left;
-}
 
-.eachForm input {
-  display: flex;
-  justify-content: end;
-  width: 70%;
-  height: 1.7rem;
-  padding: 0.7rem;
-  border: 1px solid #ccc; 
-  border-radius: 0.5rem;
-}
-
-.eachForm p {
-  font-weight: bold;
-}
-
-.eachForm select {
-  display: flex;
-  justify-content: end;
-  width: 70%;
-  height: 3.2rem;
-  padding: 0.7rem;
-  border: 1px solid #ccc; 
-  border-radius: 0.5rem;
-}
-
-.lectureForm .cancelButton {
-  border: solid 2px;
-  font-size: 1.2em;
-  font-weight: bold;
-  color: #1dbe67;
-  background-color: white;
-  padding: 10px 15px;
-  border-radius: 10px;
-
-}
-
-.lectureForm button {
-  margin: 1.5rem ;
-  border: solid 2px;
-  font-size: 1.2em;
-  font-weight: bold;
-  color: white;
-  background-color: #1dbe67;
-  padding: 10px 15px;
-  border-radius: 10px;
-}
 
 .buttonContainer {
   display: flex;

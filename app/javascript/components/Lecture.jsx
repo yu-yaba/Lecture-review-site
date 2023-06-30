@@ -23,17 +23,17 @@ const Lecture = ({ lectures }) => {
         const data = await response.json();
         let avgRating = "";
         if (data.length > 0) {
-          avgRating = data.reduce((total, review) => total + review.rating, 0) / data.length;
+          avgRating = (data.reduce((total, review) => total + review.rating, 0) / data.length).toFixed(1);
         }
         setReviews({ reviews: data, avgRating });
       } catch (error) {
         handleAjaxError(error);
       }
     };
-  
+
     fetchReviews();
   }, [id]);
-  
+
   if (!lecture) return <LectureNotFound />;
 
   return (
@@ -42,24 +42,26 @@ const Lecture = ({ lectures }) => {
         <h2 className='lectureTitle'>
           {lecture.title}
         </h2>
-        <h2 className='lectureAvg'>{reviews.avgRating}</h2>
-        <div className='titleStar'>
-          <ReactStarsRating value={reviews.avgRating} isEdit={false} isHalf className="star" />
+        <div className='rating'>
+          <h2 className='lectureAvg'>{reviews.avgRating}</h2>
+          <div className='titleStar'>
+            <ReactStarsRating value={reviews.avgRating} isEdit={false} isHalf className="star" />
+          </div>
         </div>
+        <ul className='lectureInfo'>
+          <li>
+            <strong>教員:</strong> {lecture.lecturer}
+          </li>
+          <li>
+            <strong>学部:</strong> {lecture.faculty}
+          </li>
+        </ul>
       </div>
-      <ul className='lectureInfo'>
-        <li>
-          <strong>教員:</strong> {lecture.lecturer}
-        </li>
-        <li>
-          <strong>学部:</strong> {lecture.faculty}
-        </li>
-      </ul>
 
 
-      {reviews.reviews && reviews.reviews.map((review) => (
-        <div key={review.id} className='lectureReview'>
-          <div className='reviewContainer'>
+      <div className='lectureReview'>
+        {reviews.reviews && reviews.reviews.map((review) => (
+          <div key={review.id} className='reviewContainer'>
             <li className='eachReview'>
               <ReactStarsRating
                 value={review.rating}
@@ -74,11 +76,13 @@ const Lecture = ({ lectures }) => {
               <p><strong>内容</strong> {review.content_quality}</p>
               <p><strong>コメント</strong> {review.content}</p>
             </li>
-
           </div>
-        </div>
-      ))}
-      <Link to="newReview" className='addReview'><button type='button'>レビューする</button></Link>
+        ))}
+
+      </div>
+      <div className='addButtonCon'>
+        <Link to="newReview" className='addReview'><button type='button'>レビューする</button></Link>
+      </div>
 
     </div>
   );

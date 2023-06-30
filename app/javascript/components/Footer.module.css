@@ -18,14 +18,16 @@
 }
 
 .copyRight img {
-  width: 100px;
+  display: block;
+  align-self: center;
+  width: 120px;
   height: 40px;
 }
 
 .copyRight p {
   color: #808080;
   font-size: 0.7rem;
-  margin: 12px 40px;
+  margin: 12px 0px 12px 30px;
 }
 
 footer {

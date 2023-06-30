@@ -63,7 +63,7 @@ const ReviewForm = ({ reviews, onSave }) => {
   }, [reviews, id]); 
 
   const cancelURL = `/lectures/${id}`;
-  const title = review.id ? `${review.review_date} - ${review.review_type}` : '授業レビューを投稿する';
+  const title = review.id ? `${review.review_date} - ${review.review_type}` : '授業レビューを投稿';
 
   const [value, setvalue] = useState(3);
 
