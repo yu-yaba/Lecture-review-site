@@ -14,23 +14,31 @@
 }
 
 .addButton  {
-  margin-right: 15px;
+  margin: 10px 41px 0px 15px;
 }
 
 .header button {
   margin-top: 15px;
   border: solid 2px;
-  font-size: 0.9em;
+  font-size: 90%;
   font-weight: bold;
   color: #1dbe67;
-  background-color: white;
-  padding: 10px 20px;
-  border-radius: 10px;
-  width: 100%;
+  padding: 10px 10px;
+  backdrop-filter: blur(8px); 
+  background-color: rgba(255, 255, 255, 1); 
+  border-radius: 10px; 
+  box-shadow: 3px 3px 20px 0px rgba(29, 190, 103, 0.5), inset -0px -0px 16px 0px rgba(29, 190, 103, 0.6), inset 0px 11px 28px 0px rgb(255, 255, 255);  
   height: 60%;
+  width: 130%;
 }
 
 .header button:hover {
-  background-color: #1dbe67;
-  color: white;
+  cursor: pointer;
+  transform: scale(1.1);
+  transition: 0.2s;
+}
+
+header {
+  box-shadow: 0 0 11px 0 rgba(0, 10, 0, 0.5);
+  margin-bottom: 30px;
 }

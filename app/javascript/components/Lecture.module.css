@@ -1,5 +1,5 @@
 .lectureTitle {
-  margin: 30px 50px;
+  margin-left: 30px;
   font-size: 2.2em;
 }
 
@@ -8,12 +8,25 @@
 }
 
 .titleStar {
+  width: 110%;
   display: flex;
-  align-items: center;
+  margin-top: 13px;
 }
 
 .lectureHeader {
   display: flex;
+  flex-wrap: wrap;
+  box-shadow: 1px 1px 7px 1px rgba(158, 157, 157, 0.5), inset -1px -1px 6px 0px rgba(158, 157, 157, 0.2), inset 0px 0px 1px 0px rgb(255, 255, 255, 0.4);
+  border-radius: 10px;
+  margin: 30px 30px;
+  margin-bottom: 40px;
+}
+
+.rating {
+  display: flex;
+  height: 50px;
+  margin: auto 10px;
+  margin-left: 30px;
 }
 
 .lectureAvg {
@@ -29,49 +42,60 @@
   justify-content: center;
   margin-left: 30px;
   list-style: none;
-  margin-top: 0;
+  margin-top: 40;
   margin-bottom: 30;
 }
 
 .lectureReview {
   list-style: none;
-  margin-top: 30;
+  margin-top: 50;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .eachReview {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  width: 70%;
-  
+  box-shadow: 2px 2px 10px 1px rgba(0, 10, 0, 0.1);
+  border-radius: 10px;
+  padding: 20px;
+  width: 200px;
+}
+
+.eachReview p {
+  margin: 9px ;
 }
 
 .reviewContainer {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin: 50px 90px;
+  margin: 30px 40px;
 }
 
-.addReview {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  width: 40%;
-  margin: 50px 90px;
-}
 
 .addReview button {
-  border: solid 2px;
+  background-color: #1dbe67;
+  border: none;
   font-size: 1.2em;
   font-weight: bold;
-  color: #1dbe67;
+  color: white;
   padding: 10px 20px;
   border-radius: 10px;
+  margin-top: 50px;
+  cursor: pointer;
+  box-shadow: 1px 1px 7px 2px rgba(158, 157, 157, 0.7), inset -1px -1px 6px 0px rgba(158, 157, 157, 0.2), inset 0px 0px 1px 0px rgb(255, 255, 255, 0.4);  
+
 }
 
 .addReview button:hover {
-  background-color: #1dbe67;
-  color: white;
+  box-shadow: none;
+  transform: translate3d(0, 5px, 0);
+  transition: 0.2s;
 }
 
+.addButtonCon {
+  display: flex;
+  justify-content: center;
+}
