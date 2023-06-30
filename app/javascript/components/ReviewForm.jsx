@@ -63,7 +63,7 @@ const ReviewForm = ({ reviews, onSave }) => {
   }, [reviews, id]); 
 
   const cancelURL = `/lectures/${id}`;
-  const title = review.id ? `${review.review_date} - ${review.review_type}` : '授業レビューを投稿';
+  const title = review.id ? `${review.review_date} - ${review.review_type}` : '授業レビューを投稿する';
 
   const [value, setvalue] = useState(3);
 
@@ -103,14 +103,14 @@ const ReviewForm = ({ reviews, onSave }) => {
         <div className='eachForm'>
           {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
           <label>
-            <p>授業を受けた時期</p>
+            <p>授業を受けた年</p>
             <select id="period_year" name="period_year" onChange={handleInputChange} value={review.period_year}>
               <option>2023</option>
               <option>2022</option>
               <option>2021</option>
               <option>2020</option>
             </select>
-            <p>年</p>
+            <p>ターム</p>
             <select id="period_term" name="period_term" onChange={handleInputChange} value={review.period_term}>
               <option>選択してください</option>
               <option>1ターム</option>
