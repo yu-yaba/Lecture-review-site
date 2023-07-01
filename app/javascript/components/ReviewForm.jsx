@@ -24,7 +24,7 @@ const ReviewForm = ({ reviews, onSave }) => {
     return { ...defaults };
   };
 
-  const [review, setReview] = useState(initialReviewState()); 
+  const [review, setReview] = useState(initialReviewState());
   const [formErrors, setFormErrors] = useState({});
 
   const updateReview = (key, value) => {
@@ -60,7 +60,7 @@ const ReviewForm = ({ reviews, onSave }) => {
 
   useEffect(() => {
     setReview(initialReviewState());
-  }, [reviews, id]); 
+  }, [reviews, id]);
 
   const cancelURL = `/lectures/${id}`;
   const title = review.id ? `${review.review_date} - ${review.review_type}` : '授業レビューを投稿する';
@@ -69,10 +69,10 @@ const ReviewForm = ({ reviews, onSave }) => {
 
   const starOnChange = (newValue) => {
     setvalue(newValue);
-    setReview({...review, rating: newValue});
+    setReview({ ...review, rating: newValue });
   };
-      
-    const handleSubmit = (e) => {
+
+  const handleSubmit = (e) => {
     e.preventDefault();
     const errors = validateReview(review); // errorsにエラーメッセージを格納
 
