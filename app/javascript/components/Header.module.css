@@ -13,6 +13,7 @@
   height: 90px;
 }
 
+
 .addButton  {
   margin: 10px 41px 0px 15px;
 }
@@ -32,6 +33,7 @@
   width: 130%;
 }
 
+
 .header button:hover {
   cursor: pointer;
   transform: scale(1.1);
@@ -41,4 +43,45 @@
 header {
   box-shadow: 0 0 11px 0 rgba(0, 10, 0, 0.5);
   margin-bottom: 30px;
+}
+
+
+_::-webkit-full-page-media,_:future,:root .header img {
+  width: 50%;
+  height: 70%;
+  padding-top: 13px;
+  padding-left: 30px;
+  margin: 0;
+  flex-shrink: 0;
+}
+
+_::-webkit-full-page-media,_:future,:root .titleCon {
+  mergin: 0;
+}
+
+_::-webkit-full-page-media,_:future,:root .header {
+  display: flex;
+  justify-content: space-between;
+  background-color: #1DBE67;
+  height: 90px;
+}
+
+_::-webkit-full-page-media,_:future,:root .addButton  {
+  margin: 10px 41px 0px 15px;
+}
+
+_::-webkit-full-page-media,_:future,:root .header button {
+  margin-top: 15px;
+  margin-left: 0;
+  border: solid 2px;
+  font-size: 90%;
+  font-weight: bold;
+  color: #1dbe67;
+  padding: 10px 10px;
+  backdrop-filter: blur(8px); 
+  background-color: rgba(255, 255, 255, 1); 
+  border-radius: 10px; 
+  box-shadow: 3px 3px 20px 0px rgba(29, 190, 103, 0.5), inset -0px -0px 16px 0px rgba(29, 190, 103, 0.6), inset 0px 11px 28px 0px rgb(255, 255, 255);  
+  height: 60%;
+  width: 130%;
 }

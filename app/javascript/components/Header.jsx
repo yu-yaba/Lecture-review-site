@@ -6,7 +6,7 @@ import './Header.module.css';
 const Header = () => (
   <header>
     <Link to='/lectures/' className='header'>
-      <div className='header'>
+      <div className='titleCon'>
         <img src="/white-title.png" alt='title' />
       </div>
       <Link to="/lectures/new" className='addButton'>
