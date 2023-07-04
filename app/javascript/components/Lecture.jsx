@@ -4,14 +4,45 @@ import { useParams, Link } from 'react-router-dom';
 import ReactStarsRating from 'react-awesome-stars-rating';
 import LectureNotFound from './LectureNotFound';
 import { handleAjaxError } from '../helpers/helpers';
+import Modal from 'react-modal'; 
 import './Lecture.module.css';
 
+Modal.setAppElement('#root') 
+
+const customStyles = {
+  content : {
+    top                   : '50%',
+    left                  : '50%',
+    right                 : 'auto',
+    bottom                : 'auto',
+    marginRight           : '-50%',
+    transform             : 'translate(-50%, -50%)'
+  }
+};
 
 
 const Lecture = ({ lectures }) => {
   const [reviews, setReviews] = useState({ reviews: [], avgRating: "" });
+  const [modalIsOpen,setIsOpen] = React.useState(false); // モーダルの状態を管理
+  const [images, setImages] = useState([]); // 画像のURLを保持
   const { id } = useParams(); // useParamsでURLを取得し、分割代入でidを代入
   const lecture = lectures.find((e) => e.id === Number(id)); // findでidが一致するlectureを取得
+
+  const openModal = async () => { // モーダルを開く関数
+    try {
+      const response = await fetch(`/api/lectures/${id}/images`);
+      if (!response.ok) throw Error(response.statusText);
+      const data = await response.json();
+      setImages(data);
+    } catch (error) {
+      handleAjaxError(error);
+    }
+    setIsOpen(true);
+  }
+
+  const closeModal = () => { // モーダルを閉じる関数
+    setIsOpen(false);
+  }
 
 
   useEffect(() => {
@@ -57,7 +88,21 @@ const Lecture = ({ lectures }) => {
           </li>
         </ul>
       </div>
-
+      <div>
+        <button type='button' onClick={openModal}>過去問</button>
+        <Modal // モーダルの実装
+          isOpen={modalIsOpen}
+          onRequestClose={closeModal}
+          style={customStyles}
+          contentLabel="Example Modal"
+        >
+          <button type='button' onClick={closeModal}>Close</button>
+          {images.map((image) => (
+            <img key={image.url} src={image.url} alt="Past exam" />
+          ))}
+        </Modal>
+        <Link to="upload" className='addReview'><button type='button'>過去問を投稿する</button></Link>
+      </div>
 
       <div className='lectureReview'>
         {reviews.reviews && reviews.reviews.map((review) => (

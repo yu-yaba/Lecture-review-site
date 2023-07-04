@@ -7,6 +7,7 @@ import Lecture from './Lecture';
 import LectureForm from './LectureForm';
 import PrivacyPolicy from './PrivacyPolicy';
 import TermsOfService from './TermsOfService';
+import ImageUpload from './ImageUpload';
 import { success } from '../helpers/notifications';
 import { handleAjaxError } from '../helpers/helpers';
 import ReviewForm from './ReviewForm';
@@ -93,6 +94,7 @@ const Editor = () => {
             <Route path="new" element={<LectureForm onSave={addLecture} />} />
             <Route path=":id/*" element={<Lecture lectures={lectures} reviews={reviews} addReview={addReview} />} />
             <Route path=":id/newReview" element={<ReviewForm onSave={addReview} />} />
+            <Route path=":id/upload" element={<ImageUpload onImageUpload={handleImageUpload}/>} />
             <Route path="/policy" element={<PrivacyPolicy />} />
             <Route path="/terms" element={<TermsOfService />} />
           </Routes>
