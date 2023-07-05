@@ -70,5 +70,5 @@ Rails.application.configure do
 
   config.active_storage.service = :amazon
 
-  config.action_mailer.default_url_options = { host: 'localhost' }
+Rails.application.routes.default_url_options[:host] = 'localhost:3000'
 end

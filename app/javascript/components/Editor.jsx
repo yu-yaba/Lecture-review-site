@@ -85,11 +85,10 @@ const Editor = () => {
   const addImage = async (savedImage) => {
     try {
       setImages([...images, savedImage]);
-      success('画像を登録しました');
       console.log(savedImage)
       navigate(`/lectures/${savedImage.id}`);
-    } catch (error) {
-      handleAjaxError("画像の登録に失敗しました");
+    } catch (error) { 
+      console.log(error)
     }
   };
     

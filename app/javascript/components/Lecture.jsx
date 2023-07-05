@@ -4,44 +4,43 @@ import { useParams, Link } from 'react-router-dom';
 import ReactStarsRating from 'react-awesome-stars-rating';
 import LectureNotFound from './LectureNotFound';
 import { handleAjaxError } from '../helpers/helpers';
-import Modal from 'react-modal'; 
+import Modal from 'react-modal';
 import './Lecture.module.css';
 
-Modal.setAppElement('#root') 
+Modal.setAppElement('#root')
 
 const customStyles = {
-  content : {
-    top                   : '50%',
-    left                  : '50%',
-    right                 : 'auto',
-    bottom                : 'auto',
-    marginRight           : '-50%',
-    transform             : 'translate(-50%, -50%)'
+  content: {
+    top: '50%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    marginRight: '-50%',
+    transform: 'translate(-50%, -50%)'
   }
 };
 
 
 const Lecture = ({ lectures }) => {
   const [reviews, setReviews] = useState({ reviews: [], avgRating: "" });
-  const [modalIsOpen,setIsOpen] = React.useState(false); // モーダルの状態を管理
+  const [modalIsOpen, setIsOpen] = React.useState(false); // モーダルの状態を管理
   const [images, setImages] = useState([]); // 画像のURLを保持
   const { id } = useParams(); // useParamsでURLを取得し、分割代入でidを代入
   const lecture = lectures.find((e) => e.id === Number(id)); // findでidが一致するlectureを取得
 
-  const openModal = async () => { 
+  const openModal = async () => {
     try {
       const response = await fetch(`/api/lectures/${id}/images`);
       if (!response.ok) throw Error(response.statusText);
       const data = await response.json();
-      setImages(data.image_url ? [{ url: data.image_url }] : []);
+      setImages(data.image_urls ? data.image_urls.map(url => ({ url })) : []);
       console.log("Image data fetched: ", data);
     } catch (error) {
       handleAjaxError("過去問はありません");
     }
     setIsOpen(true);
   }
-  
-const closeModal = () => { // モーダルを閉じる関数
+  const closeModal = () => { // モーダルを閉じる関数
     setIsOpen(false);
   }
 
@@ -89,7 +88,7 @@ const closeModal = () => { // モーダルを閉じる関数
           </li>
         </ul>
       </div>
-      <div className='imageCon'>
+      <div className='modalCon'>
         <button type='button' onClick={openModal}>過去問</button>
         <Modal // モーダルの実装
           isOpen={modalIsOpen}
@@ -98,9 +97,13 @@ const closeModal = () => { // モーダルを閉じる関数
           contentLabel="Example Modal"
         >
           <button type='button' className='closeButton' onClick={closeModal}>×</button>
-          {images.map((image) => (
-            <img key={image.url} src={image.url} alt="Past exam" />
-          ))}
+          <div className='imageContainer'>
+            {images.map((image) => (
+              <a key={image.url} href={image.url} target="_blank" rel="noopener noreferrer">
+                <img src={image.url} alt="Past exam" />
+              </a>
+            ))}
+          </div>
         </Modal>
         <Link to="upload" className='addReview'><button type='button'>過去問を投稿</button></Link>
       </div>

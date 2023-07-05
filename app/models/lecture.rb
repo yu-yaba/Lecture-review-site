@@ -1,4 +1,4 @@
 class Lecture < ApplicationRecord
   has_many :reviews
-  has_one_attached :image
+  has_many_attached :images
 end

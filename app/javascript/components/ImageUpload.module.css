@@ -34,3 +34,13 @@
   display: flex;
   justify-content: center;
 }
+
+.imagePreviewCon {
+  display: flex;
+  justify-content: center;
+}
+
+.imagePreviewCon img {
+  width: 50%;
+  height: 50%;
+}
