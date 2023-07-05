@@ -1,5 +1,5 @@
 class Api::LecturesController < ApplicationController
-  before_action :set_lecture, only: [:show, :update]
+  before_action :set_lecture, only: [:show, :update, :create_image, :show_image]
 
   # GET /lectures
   def index
@@ -31,6 +31,25 @@ class Api::LecturesController < ApplicationController
       render json: @lecture.errors, status: :unprocessable_entity
     end
   end
+
+  # POST /lectures/1/images
+  def create_image
+    @lecture.image.attach(params[:lecture][:image])
+
+    if @lecture.save
+      render json: @lecture, status: :created
+    else
+      render json: @lecture.errors, status: :unprocessable_entity
+    end
+  end
+
+  def show_image
+    if @lecture.image.attached?
+      render json: { image_url: rails_blob_url(@lecture.image) }
+    else
+      render json: { error: 'No image attached' }, status: 404
+    end
+  end  
 
   # PATCH/PUT /lectures/1
   def update

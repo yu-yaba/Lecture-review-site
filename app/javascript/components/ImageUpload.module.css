@@ -1,0 +1,36 @@
+.imageUploadCon p {
+  border: 3px  #1DBE67 dotted;
+  border-radius: 5px;
+  margin: 20px;
+  padding: 20px;
+  font-weight: bold;
+}
+
+.imageUploadCon p:hover {
+  background-color: #E6FFE6;
+  cursor: pointer;
+}
+
+.imageUploadCon button {
+  background-color: #1dbe67;
+  border: none;
+  font-size: 1.2em;
+  font-weight: bold;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 10px;
+  margin: 50px auto;
+  cursor: pointer;
+  box-shadow: 1px 1px 7px 2px rgba(158, 157, 157, 0.7), inset -1px -1px 6px 0px rgba(158, 157, 157, 0.2), inset 0px 0px 1px 0px rgb(255, 255, 255, 0.4);  
+} 
+
+.imageUploadCon button:hover {
+  box-shadow: none;
+  transform: translate3d(0, 5px, 0);
+  transition: 0.2s;
+}
+
+.imageUploadButton {
+  display: flex;
+  justify-content: center;
+}

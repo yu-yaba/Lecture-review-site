@@ -32,7 +32,10 @@ const Lecture = ({ lectures }) => {
     try {
       const response = await fetch(`/api/lectures/${id}/images`);
       if (!response.ok) throw Error(response.statusText);
-      const data = await response.json();
+      let data = await response.json();
+      if (!Array.isArray(data)) {
+        data = [];
+      }
       setImages(data);
     } catch (error) {
       handleAjaxError(error);
@@ -88,7 +91,7 @@ const Lecture = ({ lectures }) => {
           </li>
         </ul>
       </div>
-      <div>
+      <div className='imageCon'>
         <button type='button' onClick={openModal}>過去問</button>
         <Modal // モーダルの実装
           isOpen={modalIsOpen}
@@ -96,12 +99,12 @@ const Lecture = ({ lectures }) => {
           style={customStyles}
           contentLabel="Example Modal"
         >
-          <button type='button' onClick={closeModal}>Close</button>
+          <button type='button' className='closeButton' onClick={closeModal}>×</button>
           {images.map((image) => (
             <img key={image.url} src={image.url} alt="Past exam" />
           ))}
         </Modal>
-        <Link to="upload" className='addReview'><button type='button'>過去問を投稿する</button></Link>
+        <Link to="upload" className='addReview'><button type='button'>過去問を投稿</button></Link>
       </div>
 
       <div className='lectureReview'>
@@ -109,7 +112,7 @@ const Lecture = ({ lectures }) => {
           <div key={review.id} className='reviewContainer'>
             <li className='eachReview'>
               <ReactStarsRating
-                value={review.rating}
+                value={parseFloat(review.rating)}
                 isEdit={false} // ユーザーが評価を編集できないようにする
                 isHalf
               />

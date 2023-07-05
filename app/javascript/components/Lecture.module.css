@@ -99,3 +99,32 @@
   display: flex;
   justify-content: center;
 }
+
+.imageCon {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 50px;
+}
+
+.imageCon button, Link {
+  margin: 10px 10px;
+  background-color: white;
+  border: none;
+  font-size: 1.2em;
+  font-weight: bold;
+  color: black;
+  padding: 10px 20px;
+  width: 250px;
+  height: 60px;
+  border-radius: 10px;
+  cursor: pointer;
+  box-shadow: 1px 1px 7px 2px rgba(158, 157, 157, 0.7), inset -1px -1px 6px 0px rgba(158, 157, 157, 0.2), inset 0px 0px 1px 0px rgb(255, 255, 255, 0.4);  
+}
+
+.imageCon button:hover {
+  box-shadow: none;
+  transform: translate3d(0, 5px, 0);
+  transition: 0.2s;
+}
+

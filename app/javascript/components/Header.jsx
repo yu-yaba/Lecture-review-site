@@ -9,10 +9,11 @@ const Header = () => (
       <div className='titleCon'>
         <img src="/white-title.png" alt='title' />
       </div>
-      <Link to="/lectures/new" className='addButton'>
-        <button type='button'>授業を登録</button>
-      </Link>
-
+      <object>
+        <Link to="/lectures/new" className='addButton'>
+          <button type='button'>授業を登録</button>
+        </Link>
+      </object>
     </Link>
 
   </header>

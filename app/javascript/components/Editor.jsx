@@ -18,6 +18,8 @@ const Editor = () => {
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
   const [reviews, setReviews] = useState([]);
+  const [images, setImages] = useState([]); // 画像のURLを保持
+
 
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -80,6 +82,17 @@ const Editor = () => {
     }
   };
 
+  const addImage = async (savedImage) => {
+    try {
+      setImages([...images, savedImage]);
+      success('画像を登録しました');
+      console.log(savedImage)
+      navigate(`/lectures/${savedImage.id}`);
+    } catch (error) {
+      handleAjaxError(error);
+    }
+  };
+    
   return (
     <>
       <div > 
@@ -94,7 +107,7 @@ const Editor = () => {
             <Route path="new" element={<LectureForm onSave={addLecture} />} />
             <Route path=":id/*" element={<Lecture lectures={lectures} reviews={reviews} addReview={addReview} />} />
             <Route path=":id/newReview" element={<ReviewForm onSave={addReview} />} />
-            <Route path=":id/upload" element={<ImageUpload onImageUpload={handleImageUpload}/>} />
+            <Route path=":id/upload" element={<ImageUpload onImageUpload={addImage}/>} />
             <Route path="/policy" element={<PrivacyPolicy />} />
             <Route path="/terms" element={<TermsOfService />} />
           </Routes>

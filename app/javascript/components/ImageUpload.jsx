@@ -2,9 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useParams } from 'react-router-dom';
 import { useDropzone } from 'react-dropzone';
+import './ImageUpload.module.css';
 
 const ImageUpload = ({ onImageUpload }) => {
   const { id } = useParams(); // Lecture IDを取得する
+  console.log("Lecture ID: ", id);
 
   const [uploadStatus, setUploadStatus] = React.useState(''); // Uploadのステータスを管理する
   const [files, setFiles] = React.useState([]); // 選択されたファイルを保持する
@@ -20,8 +22,8 @@ const ImageUpload = ({ onImageUpload }) => {
       const formData = new FormData();
       formData.append('lecture[image]', file);
 
-      fetch(`/api/lectures/${id}`, { // Lecture IDをエンドポイントに含める
-        method: 'PUT',
+      fetch(`/api/lectures/${id}/images`, { // Lecture IDをエンドポイントに含める
+        method: 'POST', // Here we changed the method from PUT to POST
         body: formData,
       })
         .then((response) => response.json())
@@ -39,13 +41,15 @@ const ImageUpload = ({ onImageUpload }) => {
   const { getRootProps, getInputProps } = useDropzone({ onDrop, accept: 'image/*' });
 
   return (
-    <div>
+    <div className='imageUploadCon'>
       <div {...getRootProps()}>
         <input {...getInputProps()} />
         <p>ここにファイルをドラッグ&ドロップ、またはクリックしてファイルを選択してください。</p>
       </div>
       {uploadStatus && <p>{uploadStatus}</p>} {/* アップロードのステータスを表示 */}
-      <button type='button' onClick={handleUpload}>アップロード</button> {/* アップロードボタン */}
+      <div className='imageUploadButton'>
+        <button type='button' onClick={handleUpload}>アップロード</button> {/* アップロードボタン */}
+      </div>
     </div>
   );
 };
