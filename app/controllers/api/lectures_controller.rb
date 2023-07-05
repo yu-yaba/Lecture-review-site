@@ -44,13 +44,15 @@ class Api::LecturesController < ApplicationController
   end
 
   def show_image
+    Rails.logger.debug "show_image action called"
+    
     if @lecture.image.attached?
       render json: { image_url: rails_blob_url(@lecture.image) }
     else
       render json: { error: 'No image attached' }, status: 404
     end
   end  
-
+  
   # PATCH/PUT /lectures/1
   def update
     if @lecture.update(lecture_params)

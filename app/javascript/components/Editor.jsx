@@ -32,7 +32,7 @@ const Editor = () => {
         const data = await response.json();
         setLectures(data);
       } catch (error) {
-        handleAjaxError(error);
+        handleAjaxError("データが取得できませんでした");
       }
       setIsLoading(false);
     };
@@ -56,7 +56,7 @@ const Editor = () => {
       success('授業を登録しました');
       navigate(`/lectures/${savedLecture.id}`);
     } catch (error) {
-      handleAjaxError(error);
+      handleAjaxError("授業の登録に失敗しました");
     }
   };
 
@@ -78,7 +78,7 @@ const Editor = () => {
       success('レビューを登録しました');
       navigate(`/lectures/${reviewWithLectureId.lecture_id}`);
     } catch (error) {
-      handleAjaxError(error);
+      handleAjaxError("レビューの登録に失敗しました");
     }
   };
 
@@ -89,7 +89,7 @@ const Editor = () => {
       console.log(savedImage)
       navigate(`/lectures/${savedImage.id}`);
     } catch (error) {
-      handleAjaxError(error);
+      handleAjaxError("画像の登録に失敗しました");
     }
   };
     

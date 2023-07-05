@@ -28,22 +28,20 @@ const Lecture = ({ lectures }) => {
   const { id } = useParams(); // useParamsでURLを取得し、分割代入でidを代入
   const lecture = lectures.find((e) => e.id === Number(id)); // findでidが一致するlectureを取得
 
-  const openModal = async () => { // モーダルを開く関数
+  const openModal = async () => { 
     try {
       const response = await fetch(`/api/lectures/${id}/images`);
       if (!response.ok) throw Error(response.statusText);
-      let data = await response.json();
-      if (!Array.isArray(data)) {
-        data = [];
-      }
-      setImages(data);
+      const data = await response.json();
+      setImages(data.image_url ? [{ url: data.image_url }] : []);
+      console.log("Image data fetched: ", data);
     } catch (error) {
-      handleAjaxError(error);
+      handleAjaxError("過去問はありません");
     }
     setIsOpen(true);
   }
-
-  const closeModal = () => { // モーダルを閉じる関数
+  
+const closeModal = () => { // モーダルを閉じる関数
     setIsOpen(false);
   }
 
@@ -61,7 +59,7 @@ const Lecture = ({ lectures }) => {
         }
         setReviews({ reviews: data, avgRating });
       } catch (error) {
-        handleAjaxError(error);
+        handleAjaxError("レビューの取得に失敗しました");
       }
     };
 
