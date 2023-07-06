@@ -1,5 +1,4 @@
-class Api::LecturesController < ApplicationController
-  skip_before_action :verify_authenticity_token, only: [:create_image]
+class Api::LecturesController < Api::ApiController
   before_action :set_lecture, only: [:show, :update, :create_image, :show_image]
 
 # GET /lectures

@@ -1,6 +1,6 @@
-class Api::ReviewsController < ApplicationController
+class Api::ReviewsController < Api::ApiController
   before_action :set_lecture
-  
+    
   def index
     lecture = Lecture.find(params[:lecture_id])
     reviews = lecture.reviews
