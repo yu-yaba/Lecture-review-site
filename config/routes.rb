@@ -1,10 +1,15 @@
-Rails.application.routes.draw do  
+Rails.application.routes.draw do
+  root to: 'api/lectures#index'
+
   namespace :api do
     resources :lectures do
       resources :reviews, only: [:index, :create]
+      member do
+        post 'images', to: 'lectures#create_image'
+        get 'images', to: 'lectures#show_image' # 追加
+      end
     end
   end
-  
-  # これを追加します。これにより、未知のルートがリクエストされたときには全てsiteコントローラーのindexアクションにルーティングします。
+
   get '*path', to: 'site#index', constraints: ->(request){ request.format.html? }
-  root to: 'site#index'end
+end

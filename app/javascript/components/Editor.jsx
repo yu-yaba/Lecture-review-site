@@ -1,9 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import Header from './Header';
+import Footer from './Footer';
 import LectureList from './LectureList';
 import Lecture from './Lecture';
 import LectureForm from './LectureForm';
+import PrivacyPolicy from './PrivacyPolicy';
+import TermsOfService from './TermsOfService';
+import ImageUpload from './ImageUpload';
 import { success } from '../helpers/notifications';
 import { handleAjaxError } from '../helpers/helpers';
 import ReviewForm from './ReviewForm';
@@ -14,6 +18,8 @@ const Editor = () => {
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
   const [reviews, setReviews] = useState([]);
+  const [images, setImages] = useState([]); // 画像のURLを保持
+
 
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -26,7 +32,7 @@ const Editor = () => {
         const data = await response.json();
         setLectures(data);
       } catch (error) {
-        handleAjaxError(error);
+        handleAjaxError("データが取得できませんでした");
       }
       setIsLoading(false);
     };
@@ -50,7 +56,7 @@ const Editor = () => {
       success('授業を登録しました');
       navigate(`/lectures/${savedLecture.id}`);
     } catch (error) {
-      handleAjaxError(error);
+      handleAjaxError("授業の登録に失敗しました");
     }
   };
 
@@ -72,10 +78,20 @@ const Editor = () => {
       success('レビューを登録しました');
       navigate(`/lectures/${reviewWithLectureId.lecture_id}`);
     } catch (error) {
-      handleAjaxError(error);
+      handleAjaxError("レビューの登録に失敗しました");
     }
   };
 
+  const addImage = async (savedImage) => {
+    try {
+      setImages([...images, savedImage]);
+      console.log(savedImage)
+      navigate(`/lectures/${savedImage.id}`);
+    } catch (error) { 
+      console.log(error)
+    }
+  };
+    
   return (
     <>
       <div > 
@@ -90,8 +106,14 @@ const Editor = () => {
             <Route path="new" element={<LectureForm onSave={addLecture} />} />
             <Route path=":id/*" element={<Lecture lectures={lectures} reviews={reviews} addReview={addReview} />} />
             <Route path=":id/newReview" element={<ReviewForm onSave={addReview} />} />
+            <Route path=":id/upload" element={<ImageUpload onImageUpload={addImage}/>} />
+            <Route path="/policy" element={<PrivacyPolicy />} />
+            <Route path="/terms" element={<TermsOfService />} />
           </Routes>
         )}
+      </div>
+      <div>
+        <Footer/>
       </div>
     </>
   );

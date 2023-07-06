@@ -1,10 +1,8 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import React, { useState, useRef } from 'react';
 import PropTypes from 'prop-types';
-import { Link, NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import ReactStarsRating from 'react-awesome-stars-rating';
-import { IconContext } from 'react-icons'
-import { RiAddCircleLine } from 'react-icons/ri';
 import Pagination from './Pagination';
 import './LectureList.module.css';
 
@@ -70,12 +68,6 @@ const LectureList = ({ lectures }) => {
             onKeyUp={updateSearchTerm} // キーを話した時に実行
           />
 
-          <Link to="/lectures/new" className='addButton'>
-            {/* eslint-disable-next-line react/jsx-no-constructed-context-values */}
-            <IconContext.Provider value={{ color: '#77787B', size: '2.3em' }}>
-              <RiAddCircleLine />
-            </IconContext.Provider>
-          </Link>
         </div>
 
       </div>
