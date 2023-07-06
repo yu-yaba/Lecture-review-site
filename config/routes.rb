@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
-  root to: 'api/lectures#index'
-
+  root to: 'site#index'
+  
   namespace :api do
     resources :lectures do
       resources :reviews, only: [:index, :create]
