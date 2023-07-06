@@ -10,7 +10,7 @@ const ImageUpload = ({ onImageUpload }) => {
   const { id } = useParams(); // Lecture IDを取得する
   console.log("Lecture ID: ", id);
 
-  const [uploadStatus, setUploadStatus] = React.useState(''); // Uploadのステータスを管理する
+  const [uploadStatus] = React.useState(''); // Uploadのステータスを管理する
   const [files, setFiles] = React.useState([]); // 選択されたファイルを保持する
 
   const maxSize = 1048576; // 1MB in bytes

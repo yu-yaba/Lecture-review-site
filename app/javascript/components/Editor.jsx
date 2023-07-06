@@ -11,7 +11,6 @@ import ImageUpload from './ImageUpload';
 import { success } from '../helpers/notifications';
 import { handleAjaxError } from '../helpers/helpers';
 import ReviewForm from './ReviewForm';
-import './Editor.module.css';
 
 const Editor = () => {
   const [lectures, setLectures] = useState([]);
