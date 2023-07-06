@@ -94,4 +94,7 @@ Rails.application.configure do
 
   config.active_storage.service = :amazon
 
+  Rails.application.routes.default_url_options[:host] = 'niigata-univ-lecture-review-5a3fbbeb0fc7.herokuapp.com'
+
+
 end
