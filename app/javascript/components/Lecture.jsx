@@ -23,27 +23,37 @@ const customStyles = {
 
 const Lecture = ({ lectures }) => {
   const [reviews, setReviews] = useState({ reviews: [], avgRating: "" });
-  const [modalIsOpen, setIsOpen] = React.useState(false); // モーダルの状態を管理
+  const [isOpen, setIsOpen] = React.useState(false); // モーダルの状態を管理
   const [images, setImages] = useState([]); // 画像のURLを保持
   const { id } = useParams(); // useParamsでURLを取得し、分割代入でidを代入
   const lecture = lectures.find((e) => e.id === Number(id)); // findでidが一致するlectureを取得
+  const [imageCount, setImageCount] = useState(0);
 
-  const openModal = async () => {
-    try {
-      const response = await fetch(`/api/lectures/${id}/images`);
-      if (!response.ok) throw Error(response.statusText);
-      const data = await response.json();
-      setImages(data.image_urls ? data.image_urls.map(url => ({ url })) : []);
-      console.log("Image data fetched: ", data);
-    } catch (error) {
+  useEffect(() => {
+    const fetchImages = async () => {
+        const response = await fetch(`/api/lectures/${id}/images`);
+        if (!response.ok) throw Error(response.statusText);
+        const data = await response.json();
+        const imageUrls = data.image_urls ? data.image_urls.map(url => ({ url })) : [];
+        setImages(imageUrls);
+        setImageCount(imageUrls.length); // 画像の数をstateに保存
+        console.log("Image data fetched: ", data);
+    };
+
+    fetchImages(); // 関数を呼び出し
+  }, [id]); // idが変更された時に再度実行
+
+  const openModal = () => {
+    if (imageCount === 0) {
       handleAjaxError("過去問はありません");
+      return;
     }
     setIsOpen(true);
-  }
+  };
+
   const closeModal = () => { // モーダルを閉じる関数
     setIsOpen(false);
-  }
-
+  };
 
   useEffect(() => {
     const fetchReviews = async () => {
@@ -89,9 +99,9 @@ const Lecture = ({ lectures }) => {
         </ul>
       </div>
       <div className='modalCon'>
-        <button type='button' onClick={openModal}>過去問</button>
+        <button type='button' onClick={openModal} style={{color: imageCount === 0 ? 'red' : '#1DBE67'}}>過去問 ({imageCount})</button>
         <Modal // モーダルの実装
-          isOpen={modalIsOpen}
+          isOpen={isOpen}
           onRequestClose={closeModal}
           style={customStyles}
           contentLabel="Example Modal"
