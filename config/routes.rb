@@ -4,6 +4,10 @@ Rails.application.routes.draw do
   namespace :api do
     resources :lectures do
       resources :reviews, only: [:index, :create]
+      member do
+        post 'images', to: 'lectures#create_image'
+        get 'images', to: 'lectures#show_image' # 追加
+      end
     end
   end
 

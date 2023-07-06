@@ -62,6 +62,6 @@ export const validateReview = (review) => {
 };
 
 export const handleAjaxError = (err) => {
-  error('Something went wrong');
+  error(err);
   console.error(err);
 };

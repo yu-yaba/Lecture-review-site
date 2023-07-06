@@ -12,7 +12,8 @@ module.exports = {
     'no-alert': 0,
     'no-use-before-define': 'off',
     "react/no-unknown-property": "off",
-    "react/prop-types": "error"
+    "react/prop-types": "error",
+    "react/jsx-props-no-spreading": "off"
     },
   "env": {
     "browser": true,

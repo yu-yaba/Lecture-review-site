@@ -24,7 +24,7 @@ const ReviewForm = ({ reviews, onSave }) => {
     return { ...defaults };
   };
 
-  const [review, setReview] = useState(initialReviewState()); 
+  const [review, setReview] = useState(initialReviewState());
   const [formErrors, setFormErrors] = useState({});
 
   const updateReview = (key, value) => {
@@ -60,7 +60,7 @@ const ReviewForm = ({ reviews, onSave }) => {
 
   useEffect(() => {
     setReview(initialReviewState());
-  }, [reviews, id]); 
+  }, [reviews, id]);
 
   const cancelURL = `/lectures/${id}`;
   const title = review.id ? `${review.review_date} - ${review.review_type}` : '授業レビューを投稿する';
@@ -69,10 +69,10 @@ const ReviewForm = ({ reviews, onSave }) => {
 
   const starOnChange = (newValue) => {
     setvalue(newValue);
-    setReview({...review, rating: newValue});
+    setReview({ ...review, rating: newValue });
   };
-      
-    const handleSubmit = (e) => {
+
+  const handleSubmit = (e) => {
     e.preventDefault();
     const errors = validateReview(review); // errorsにエラーメッセージを格納
 
@@ -103,14 +103,14 @@ const ReviewForm = ({ reviews, onSave }) => {
         <div className='eachForm'>
           {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
           <label>
-            <p>授業を受けた時期</p>
+            <p>授業を受けた年</p>
             <select id="period_year" name="period_year" onChange={handleInputChange} value={review.period_year}>
               <option>2023</option>
               <option>2022</option>
               <option>2021</option>
               <option>2020</option>
             </select>
-            <p>年</p>
+            <p>ターム</p>
             <select id="period_term" name="period_term" onChange={handleInputChange} value={review.period_term}>
               <option>選択してください</option>
               <option>1ターム</option>
