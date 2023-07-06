@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
-  root to: 'site#index'
-  
+  root to: 'api/lectures#index'
+
   namespace :api do
     resources :lectures do
       resources :reviews, only: [:index, :create]
@@ -13,3 +13,4 @@ Rails.application.routes.draw do
 
   get '*path', to: 'site#index', constraints: ->(request){ request.format.html? }
 end
+
