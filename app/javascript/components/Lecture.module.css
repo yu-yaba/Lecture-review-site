@@ -1,5 +1,5 @@
 .lectureTitle {
-  margin-left: 30px;
+  margin: 30px 0px 30px 25px;
   font-size: 2.2em;
 }
 
@@ -104,7 +104,7 @@
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  margin-top: 50px;
+  
 }
 
 .modalCon button, Link {
@@ -132,7 +132,6 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  padding: 10px;
 }
 
 .imageContainer img {
@@ -145,13 +144,24 @@
 }
 
 .closeButton {
-  position: absolute;
+  position: fixed;
   padding: 10;
-  top: 0;
-  right: 0;
+  top: 12px;
+  right: 6px;
   font-size: 2em;
   color: #1dbe67;
   cursor: pointer;
   background-color: white;
   border: none;
 }
+
+.react-pdf__Page__textContent {
+  display: none !important;
+}
+
+.pdfContainer {
+  margin: 10px;
+}
+
+
+

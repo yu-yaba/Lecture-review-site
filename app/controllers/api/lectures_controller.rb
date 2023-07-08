@@ -48,15 +48,18 @@ class Api::LecturesController < Api::ApiController
       
   def show_image
     if @lecture.images.attached?
-      image_urls = @lecture.images.map do |image|
-        rails_blob_url(image)
+      images = @lecture.images.map do |image|
+        {
+          url: rails_blob_url(image),
+          type: image.blob.content_type
+        }
       end
-      render json: { image_urls: image_urls }
+      render json: { images: images }
     else
       render json: { error: 'No image attached' }, status: 404
     end
   end
-    
+      
   # PATCH/PUT /lectures/1
   def update
     if @lecture.update(lecture_params)

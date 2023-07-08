@@ -2,10 +2,16 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useParams, Link } from 'react-router-dom';
 import ReactStarsRating from 'react-awesome-stars-rating';
+import Modal from 'react-modal';
+import { pdfjs, Document, Page } from 'react-pdf';
 import LectureNotFound from './LectureNotFound';
 import { handleAjaxError } from '../helpers/helpers';
-import Modal from 'react-modal';
+import "react-pdf/dist/esm/Page/AnnotationLayer.css"
+
 import './Lecture.module.css';
+
+
+pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
 Modal.setAppElement('#root')
 
@@ -16,6 +22,7 @@ const customStyles = {
     right: 'auto',
     bottom: 'auto',
     marginRight: '-50%',
+    marginTop: '7%',
     transform: 'translate(-50%, -50%)'
   }
 };
@@ -31,17 +38,18 @@ const Lecture = ({ lectures }) => {
 
   useEffect(() => {
     const fetchImages = async () => {
-        const response = await fetch(`/api/lectures/${id}/images`);
-        if (!response.ok) throw Error(response.statusText);
-        const data = await response.json();
-        const imageUrls = data.image_urls ? data.image_urls.map(url => ({ url })) : [];
-        setImages(imageUrls);
-        setImageCount(imageUrls.length); // 画像の数をstateに保存
-        console.log("Image data fetched: ", data);
+      const response = await fetch(`/api/lectures/${id}/images`);
+      if (!response.ok) throw Error(response.statusText);
+      const data = await response.json();
+      const imageUrls = data.images ? data.images.map(image => ({ url: image.url, type: image.type })) : [];
+      setImages(imageUrls);
+      setImageCount(imageUrls.length); // 画像の数をstateに保存
+      console.log("Image data fetched: ", data);
     };
 
     fetchImages(); // 関数を呼び出し
   }, [id]); // idが変更された時に再度実行
+
 
   const openModal = () => {
     if (imageCount === 0) {
@@ -99,7 +107,7 @@ const Lecture = ({ lectures }) => {
         </ul>
       </div>
       <div className='modalCon'>
-        <button type='button' onClick={openModal} style={{color: imageCount === 0 ? 'red' : '#1DBE67'}}>過去問 ({imageCount})</button>
+        <button type='button' onClick={openModal} style={{ color: imageCount === 0 ? 'red' : '#1DBE67' }}>過去問 ({imageCount})</button>
         <Modal // モーダルの実装
           isOpen={isOpen}
           onRequestClose={closeModal}
@@ -108,11 +116,24 @@ const Lecture = ({ lectures }) => {
         >
           <button type='button' className='closeButton' onClick={closeModal}>×</button>
           <div className='imageContainer'>
-            {images.map((image) => (
-              <a key={image.url} href={image.url} target="_blank" rel="noopener noreferrer">
-                <img src={image.url} alt="Past exam" />
-              </a>
-            ))}
+            {images.map(image => {
+              console.log(image);
+              if (image.type && image.type.startsWith('image/')) {
+                return <a key={image.url} href={image.url} target='_blank' rel="noopener noreferrer">
+                  <img src={image.url} alt="過去問" />
+                </a>;
+              } if (image.type && image.type === 'application/pdf') {
+                return <a key={image.url} href={image.url} target='_blank' rel="noopener noreferrer">
+                  <div className="pdfContainer">
+                    <Document file={image.url} key={image.url}>
+                      <Page pageNumber={1} scale={0.3} renderTextLayer={false}/>
+                    </Document>
+                  </div>
+                </a>
+                  ;
+              }
+              return null;
+            })}
           </div>
         </Modal>
         <Link to="upload" className='addReview'><button type='button'>過去問を投稿</button></Link>

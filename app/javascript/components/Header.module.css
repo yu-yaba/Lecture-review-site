@@ -56,6 +56,19 @@ _::-webkit-full-page-media,_:future,:root .header img {
 }
 
 _::-webkit-full-page-media,_:future,:root .titleCon {
+  mergin: 0;
   width: 200px;
 }
 
+_::-webkit-full-page-media,_:future,:root .addButton {
+  display: block;
+  white-space: nowrap;
+  margin-right: 10px;
+}
+
+_::-webkit-full-page-media,_:future,:root .header button {
+  width: 100%;
+  margin-top: 16px;
+  padding: 12px 15px;
+  font-size: 100%;
+}

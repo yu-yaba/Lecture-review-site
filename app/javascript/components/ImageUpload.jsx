@@ -19,7 +19,7 @@ const ImageUpload = ({ onImageUpload }) => {
     acceptedFiles.forEach((file) => {
       if (file.size > maxSize) {
         handleAjaxError("1MB以下のファイルを選択してください");
-      } else if (!file.type.startsWith('image/')) {
+      } else if (!file.type.startsWith('image/') && !file.type === 'application/pdf') {
         handleAjaxError("画像ファイルを選択してください");
       } else {
         file.preview = URL.createObjectURL(file); // ここでプレビューURLを追加
@@ -32,8 +32,7 @@ const ImageUpload = ({ onImageUpload }) => {
   const handleUpload = () => {
     // ボタンがクリックされたときにファイルをアップロード
     files.forEach((file) => {
-      if (file.size <= maxSize && file.type.startsWith('image/')) {
-        const formData = new FormData();
+      if (file.size <= maxSize && (file.type.startsWith('image/') || file.type === 'application/pdf')) {  const formData = new FormData();
         formData.append('lecture[image]', file);
         console.log('FormData:', formData);
         
@@ -51,7 +50,6 @@ const ImageUpload = ({ onImageUpload }) => {
             handleAjaxError('投稿に失敗しました');
           });
       } else {
-        // If the file is not an image or is too big, reject it
         handleAjaxError('1MB以下の画像ファイルを選択してください');
       }
     });
@@ -60,7 +58,7 @@ const ImageUpload = ({ onImageUpload }) => {
     files.forEach(file => URL.revokeObjectURL(file.preview));
   }, [files]);
 
-  const { getRootProps, getInputProps } = useDropzone({ onDrop, accept: 'image/*' });
+  const { getRootProps, getInputProps } = useDropzone({ onDrop, accept: 'image/*, application/pdf' });
 
   return (
     <div className='imageUploadCon'>
@@ -74,9 +72,14 @@ const ImageUpload = ({ onImageUpload }) => {
       </div>
       {/* 選択された画像のプレビューを表示 */}
       <div className='imagePreviewCon'>
-        {files.map(file => (
-          <img src={file.preview} alt={file.name} key={file.name} />
-        ))}
+        {files.map(file => {
+      if (file.type.startsWith('image/')) {
+        return <img src={file.preview} alt={file.name} key={file.name} />;
+      } if (file.type === 'application/pdf') {
+        return <iframe src={file.preview} title={file.name} key={file.name} />;
+      } 
+        return null;  
+        })}
       </div>
     </div>
   );

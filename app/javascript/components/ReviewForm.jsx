@@ -109,6 +109,7 @@ const ReviewForm = ({ reviews, onSave }) => {
               <option>2022</option>
               <option>2021</option>
               <option>2020</option>
+              <option>その他・不明</option>
             </select>
             <p>ターム</p>
             <select id="period_term" name="period_term" onChange={handleInputChange} value={review.period_term}>
@@ -119,6 +120,7 @@ const ReviewForm = ({ reviews, onSave }) => {
               <option>3ターム</option>
               <option>4ターム</option>
               <option>3, 4ターム</option>
+              <option>その他・不明</option>
             </select>
           </label>
         </div>
@@ -129,6 +131,7 @@ const ReviewForm = ({ reviews, onSave }) => {
               <option>選択してください</option>
               <option>必要</option>
               <option>不要</option>
+              <option>その他・不明</option>
             </select>
           </label>
         </div>
@@ -140,6 +143,7 @@ const ReviewForm = ({ reviews, onSave }) => {
               <option>毎回確認</option>
               <option>たまに確認</option>
               <option>なし</option>
+              <option>その他・不明</option>
             </select>
           </label>
         </div>
@@ -151,7 +155,7 @@ const ReviewForm = ({ reviews, onSave }) => {
               <option>テストのみ</option>
               <option>レポートのみ</option>
               <option>テスト,レポート</option>
-              <option>その他</option>
+              <option>その他・不明</option>
             </select>
           </label>
         </div>
@@ -188,7 +192,7 @@ const ReviewForm = ({ reviews, onSave }) => {
           </label>
         </div>
         <div className="buttonContainer">
-          <button type="submit">投稿する</button>
+          <button type="submit">投稿</button>
           <Link to={cancelURL}><button type='button' className='cancelButton'>キャンセル</button></Link>
         </div>
       </form>
