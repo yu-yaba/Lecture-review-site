@@ -148,7 +148,7 @@ const Lecture = ({ lectures }) => {
                 isEdit={false} // ユーザーが評価を編集できないようにする
                 isHalf
               />
-              <p><strong>受講時期</strong> {review.period_year}{review.period_term} </p>
+              <p><strong>受講時期</strong> {review.period_year}, {review.period_term} </p>
               <p><strong>教科書</strong> {review.textbook}</p>
               <p><strong>出席確認</strong> {review.attendance}</p>
               <p><strong>採点方法</strong> {review.grading_type}</p>

@@ -30,6 +30,7 @@ _::-webkit-full-page-media,_:future,:root .pagination button {
   background-color: #E6FFE6;
   color: #1dbe67;
   transform: scale(1.3);
+  cursor: pointer;
 }
 
 .pagination .currentPage {
