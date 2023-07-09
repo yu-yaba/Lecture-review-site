@@ -126,7 +126,7 @@ const Lecture = ({ lectures }) => {
                 return <a key={image.url} href={image.url} target='_blank' rel="noopener noreferrer">
                   <div className="pdfContainer">
                     <Document file={image.url} key={image.url}>
-                      <Page pageNumber={1} scale={0.3} renderTextLayer={false}/>
+                      <Page pageNumber={1} scale={0.3} renderTextLayer={false} />
                     </Document>
                   </div>
                 </a>
