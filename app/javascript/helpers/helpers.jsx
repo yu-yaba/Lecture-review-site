@@ -1,8 +1,6 @@
 import { error } from "./notifications";
 
-
-export const isEmptyObject = obj => Object.keys(obj).length === 0;
-
+export const isEmptyObject = (obj) => Object.keys(obj).length === 0;
 
 export const validateLecture = (lecture) => {
   const errors = {}; // 空のオブジェクトを作成し、エラーがある場合にエラーメッセージを格納する

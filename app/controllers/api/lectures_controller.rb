@@ -1,21 +1,18 @@
 class Api::LecturesController < Api::ApiController
-  before_action :set_lecture, only: [:show, :update, :create_image, :show_image]
+  before_action :set_lecture, only: [:show, :create_image, :show_image]
 
 # GET /lectures
   def index
-    @lectures = Lecture.page(params[:page]).per(params[:limit])
+    @lectures = Lecture.with_attached_images.includes(:reviews).page(params[:page]).per(params[:limit])
 
-    @lectures = @lectures.as_json
-    @lectures.each do |lecture|
-      lecture_obj = Lecture.find(lecture["id"])
-      avg_rating = lecture_obj.reviews.average(:rating) || 0
-      lecture[:avg_rating] = avg_rating.round(2)
-      lecture[:image_url] = lecture_obj.images.map do |image|
-        Rails.application.routes.url_helpers.url_for(image)
-      end
+    @lectures_json = @lectures.map do |lecture|
+      lecture_attributes = lecture.attributes
+      lecture_attributes[:avg_rating] = lecture.reviews.average(:rating)&.round(1) || 0
+      lecture_attributes[:image_urls] = lecture.images.map { |image| url_for(image) }
+      lecture_attributes
     end
-    
-    render json: @lectures
+
+    render json: @lectures_json
   end
 
   # GET /lectures/1
@@ -60,14 +57,6 @@ class Api::LecturesController < Api::ApiController
     end
   end
       
-  # PATCH/PUT /lectures/1
-  def update
-    if @lecture.update(lecture_params)
-      render json: @lecture
-    else
-      render json: @lecture.errors, status: :unprocessable_entity
-    end
-  end
 
     private
     def set_lecture

@@ -28,4 +28,4 @@ class Api::ReviewsController < Api::ApiController
   def review_params
     params.require(:review).permit(:rating, :content, :period_year, :period_term, :textbook, :attendance, :grading_type, :content_difficulty, :content_quality)
   end
-  end
+end

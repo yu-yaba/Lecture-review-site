@@ -1,41 +1,25 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { useParams, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { isEmptyObject, validateLecture } from '../helpers/helpers';
-import LectureNotFound from './LectureNotFound';
 import './LectureForm .module.css';
 
-const LectureForm = ({ lectures, onSave }) => {
-  const { id } = useParams();
-
-  const initialLectureState = useCallback(
-    () => {
-      const defaults = {
-        title: '',
-        lecturer: '',
-        faculty: '',
-      };
-
-      const currLecture = id ?
-        lectures.find((e) => e.id === Number(id)) :
-        {};
-
-      return { ...defaults, ...currLecture }
-    }, [lectures, id]);
-  const [lecture, setLecture] = useState(initialLectureState); // 初期値をセット
-
+const LectureForm = ({ onSave }) => {
+  const [lecture, setLecture] = useState({
+      title: '',
+      lecturer: '',
+      faculty: ''
+  });
   const [formErrors, setFormErrors] = useState({});
 
-
-  const updateLecture = (key, value) => {
-    setLecture((prevLecture) => ({ ...prevLecture, [key]: value }));
+  const updateLecture = (name, value) => {
+    setLecture((prevLecture) => ({ ...prevLecture, [name]: value }));
   };
-
 
   const handleInputChange = (e) => {
     const { target } = e;
     const { name } = target;
-    const value = target.type === 'checkbox' ? target.checked : target.value;
+    const { value } = target;
 
     updateLecture(name, value);
   };
@@ -68,21 +52,14 @@ const LectureForm = ({ lectures, onSave }) => {
     }
   };
 
-  useEffect(() => {
-    setLecture(initialLectureState);
-  }, [lectures, initialLectureState]);
-
-  const cancelURL = lecture.id ? `/lectures/${lecture.id}` : '/lectures';
-  const title = lecture.id ? `${lecture.title}` : '新しく講義を登録';
-
-  // URLにidがあるが、lectureが存在しない時にnotfoundページを表示する
-  if (id && !lecture.id) return <LectureNotFound />;
+  const cancelURL = '/lectures';
+  const title = '新しく講義を登録';
 
   return (
     <section>
       <h2 className='formTitle'>{title}</h2>
       {renderErrors()}
-      <form  onSubmit={handleSubmit} className='lectureForm'>
+      <form onSubmit={handleSubmit} className='lectureForm'>
         <div className='eachForm'>
           <label htmlFor="title"> {/* inputのidと紐付け */}
             <p>授業名</p>
@@ -126,18 +103,5 @@ const LectureForm = ({ lectures, onSave }) => {
 export default LectureForm;
 
 LectureForm.propTypes = {
-  lectures: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      title: PropTypes.string.isRequired,
-      lecturer: PropTypes.string.isRequired,
-      faculty: PropTypes.string.isRequired,
-    })
-  ),
   onSave: PropTypes.func.isRequired,
-};
-
-// lectureがまだ渡されていない時(新規作成)でも空の配列をデフォルト値として設定することでエラーを避ける
-LectureForm.defaultProps = {
-  lectures: [],
 };

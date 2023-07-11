@@ -17,16 +17,14 @@ const Editor = () => {
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
   const [reviews, setReviews] = useState([]);
-  const [images, setImages] = useState([]); // 画像のURLを保持
-
-
+  const [images, setImages] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
 
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await window.fetch(`/api/lectures?page=${currentPage}&limit=60`);
+        const response = await fetch(`/api/lectures?page=${currentPage}&limit=20`);
         if (!response.ok) throw Error(response.statusText);
         const data = await response.json();
         setLectures(data);
@@ -40,7 +38,7 @@ const Editor = () => {
 
   const addLecture = async (newLecture) => {
     try { // tryはエラーが起きる可能性のある処理を囲む
-      const response = await window.fetch('/api/lectures', {
+      const response = await fetch('/api/lectures', {
         method: 'POST', // リクエストのHTTPメソッドをPOSTに指定
         body: JSON.stringify(newLecture), //  送信するデータをJSON形式に変換、bodyは送信する情報
         headers: { // headersは送信する情報の形式などの詳細
@@ -50,8 +48,7 @@ const Editor = () => {
       if (!response.ok) throw Error(response.statusText);
 
       const savedLecture = await response.json();
-      const newLectures = [...lectures, savedLecture]; // 既存のLecturesに新しいイベントを追加し、新しい配列を作成
-      setLectures(newLectures);
+      setLectures([...lectures, savedLecture]);
       success('授業を登録しました');
       navigate(`/lectures/${savedLecture.id}`);
     } catch (error) {
@@ -60,11 +57,11 @@ const Editor = () => {
   };
 
 
-  const addReview = async (reviewWithLectureId) => {
+  const addReview = async (newReview) => {
     try {
-      const response = await fetch(`/api/lectures/${reviewWithLectureId.lecture_id}/reviews`, {
+      const response = await fetch(`/api/lectures/${newReview.lecture_id}/reviews`, {
         method: 'POST',
-        body: JSON.stringify(reviewWithLectureId),
+        body: JSON.stringify(newReview),
         headers: {
           'Content-Type': 'application/json',
         },
@@ -75,7 +72,7 @@ const Editor = () => {
       const savedReview = await response.json();
       setReviews([...reviews, savedReview]);
       success('レビューを登録しました');
-      navigate(`/lectures/${reviewWithLectureId.lecture_id}`);
+      navigate(`/lectures/${newReview.lecture_id}`);
     } catch (error) {
       handleAjaxError("レビューの登録に失敗しました");
     }
