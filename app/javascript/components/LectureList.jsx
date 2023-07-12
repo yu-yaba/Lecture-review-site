@@ -62,7 +62,7 @@ const LectureList = ({ lectures }) => {
         <div className='navBar'>
           <input
             className="search"
-            placeholder="検索"
+            placeholder="授業・教授・学部"
             type="text"
             ref={searchInput}
             onKeyUp={updateSearchTerm} // キーを話した時に実行

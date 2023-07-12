@@ -27,8 +27,12 @@ export const validateReview = (review) => {
     errors.rating = '評価を入力してください';
   }
 
-  if (review.period === '') {
-    errors.period = '授業を受講した時期を入力してください';
+  if (review.period_year === '') {
+    errors.period_year = '授業を受講した年を入力してください';
+  }
+
+  if (review.period_term === '') {
+    errors.period_term = '授業を受講したタームを入力してください';
   }
 
   if (review.textbook === '') {

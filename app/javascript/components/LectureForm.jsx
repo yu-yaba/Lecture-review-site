@@ -53,11 +53,10 @@ const LectureForm = ({ onSave }) => {
   };
 
   const cancelURL = '/lectures';
-  const title = '新しく講義を登録';
 
   return (
     <section>
-      <h2 className='formTitle'>{title}</h2>
+      <h2 className='formTitle'>新しく講義を登録</h2>
       {renderErrors()}
       <form onSubmit={handleSubmit} className='lectureForm'>
         <div className='eachForm'>

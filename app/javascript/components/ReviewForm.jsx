@@ -1,16 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useParams, Link } from 'react-router-dom';
 import ReactStarsRating from 'react-awesome-stars-rating';
 import { isEmptyObject, validateReview } from '../helpers/helpers';
 import './ReviewForm.module.css';
 
-const ReviewForm = ({ reviews, onSave }) => {
+const ReviewForm = ({ onSave }) => {
   const { id } = useParams();
 
   const initialReviewState = () => {
     const defaults = {
-      rating: 0,
+      rating: 3,
       period_year: '',
       period_term: '',
       textbook: '',
@@ -25,20 +25,20 @@ const ReviewForm = ({ reviews, onSave }) => {
   };
 
   const [review, setReview] = useState(initialReviewState());
-  const [formErrors, setFormErrors] = useState({});
 
-  const updateReview = (key, value) => {
-    setReview((prevReview) => ({ ...prevReview, [key]: value }));
+  const updateReview = (name, value) => {
+    setReview((prevReview) => ({ ...prevReview, [name]: value }));
   };
-
 
   const handleInputChange = (e) => {
     const { target } = e;
     const { name } = target;
-    const value = target.type === 'checkbox' ? target.checked : target.value;
+    const { value } = target;
 
     updateReview(name, value);
   };
+
+  const [formErrors, setFormErrors] = useState({});
 
   const renderErrors = () => {
     if (isEmptyObject(formErrors)) { // formErrorsが空の場合はnullを返す
@@ -50,20 +50,14 @@ const ReviewForm = ({ reviews, onSave }) => {
         <h3>空欄があります</h3>
         <ul>
           {Object.values(formErrors).map((formError) => (
-            <li key={formError}>{formError}</li>
+            <li name={formError}>{formError}</li>
           ))}
         </ul>
       </div>
     );
   };
 
-
-  useEffect(() => {
-    setReview(initialReviewState());
-  }, [reviews, id]);
-
   const cancelURL = `/lectures/${id}`;
-  const title = review.id ? `${review.review_date} - ${review.review_type}` : '授業レビューを投稿する';
 
   const [value, setvalue] = useState(3);
 
@@ -79,14 +73,14 @@ const ReviewForm = ({ reviews, onSave }) => {
     if (!isEmptyObject(errors)) { // errorsが空でない場合はエラーメッセージを表示
       setFormErrors(errors);
     } else {
-      onSave({ ...review, lecture_id: id, ratting: value });
+      onSave({ ...review, lecture_id: id, rating: value });
     }
   };
 
 
   return (
     <section>
-      <h2 className='formTitle'>{title}</h2>
+      <h2 className='formTitle'>授業レビューを投稿する</h2>
       {renderErrors()}
       <form className="lectureForm" onSubmit={handleSubmit}>
         <div className='eachForm'>
@@ -105,6 +99,7 @@ const ReviewForm = ({ reviews, onSave }) => {
           <label>
             <p>授業を受けた年</p>
             <select id="period_year" name="period_year" onChange={handleInputChange} value={review.period_year}>
+              <option>選択してください</option>
               <option>2023</option>
               <option>2022</option>
               <option>2021</option>
@@ -203,24 +198,6 @@ const ReviewForm = ({ reviews, onSave }) => {
 export default ReviewForm;
 
 ReviewForm.propTypes = {
-  reviews: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      rating: PropTypes.number.isRequired,
-      period_year: PropTypes.string.isRequired,
-      period_term: PropTypes.string.isRequired,
-      textbook: PropTypes.string.isRequired,
-      attendance: PropTypes.string.isRequired,
-      grading_type: PropTypes.string.isRequired,
-      content_difficulty: PropTypes.string.isRequired,
-      content_quality: PropTypes.string.isRequired,
-      content: PropTypes.string.isRequired,
-    })
-  ),
   onSave: PropTypes.func.isRequired,
 };
 
-// lectureがまだ渡されていない時(新規作成)でも空の配列をデフォルト値として設定することでエラーを避ける
-ReviewForm.defaultProps = {
-  reviews: [],
-};
