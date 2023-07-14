@@ -32,10 +32,9 @@ const ImageUpload = ({ onImageUpload }) => {
   const handleUpload = () => {
     // ボタンがクリックされたときにファイルをアップロード
     files.forEach((file) => {
-      if (file.size <= maxSize && (file.type.startsWith('image/') || file.type === 'application/pdf')) {  const formData = new FormData();
-        formData.append('lecture[image]', file);
-        console.log('FormData:', formData);
-        
+      if (file.size <= maxSize && (file.type.startsWith('image/') || file.type === 'application/pdf')) {  
+        const formData = new FormData();
+        formData.append('lecture[image]', file);        
         fetch(`/api/lectures/${id}/images`, {
           method: 'POST',
           body: formData,

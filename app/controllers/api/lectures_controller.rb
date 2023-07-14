@@ -32,9 +32,7 @@ class Api::LecturesController < Api::ApiController
   end
 
   # POST /lectures/1/images
-  def create_image
-    logger.debug "Received params: #{params.inspect}"
-  
+  def create_image  
     if params[:lecture][:image]
       @lecture.images.attach(params[:lecture][:image])
       render json: @lecture, status: :created

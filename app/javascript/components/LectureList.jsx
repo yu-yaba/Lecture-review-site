@@ -7,36 +7,30 @@ import Pagination from './Pagination';
 import './LectureList.module.css';
 
 const LectureList = ({ lectures }) => {
-  // searchTermでフォームの値を管理
-  const [searchTerm, setSearchTerm] = useState('');
-  // searchInputでフォームの初期値をnull
+  const [searchWord, setSearchWord] = useState('');
   const searchInput = useRef(null);
-  // 現在のページを管理
   const [currentPage, setCurrentPage] = useState(1);
-
   // 1ページあたりのレクチャー数
   const lecturesPerPage = 10;
 
-  const updateSearchTerm = () => {
+  const updateSearchWord = () => {
     // useRef.currentで参照した値に更新
-    setSearchTerm(searchInput.current.value);
+    setSearchWord(searchInput.current.value);
   };
 
-  const matchSearchTerm = (obj) => {
+  const matchSearchWord = (obj) => {
     // eslint-disable-next-line camelcase
     const { id, created_at, updated_at, ...rest } = obj;
     return Object.values(rest).some((value) =>
       value
-        .toString()  // Converts all values to string to avoid errors
+        .toString()
         .toLowerCase()
-        .indexOf(searchTerm.toLowerCase()) > -1
+        .indexOf(searchWord.toLowerCase()) > -1
     );
   };
 
   const renderLectures = (lectureArray) => {
-    const filteredLectures = lectureArray.filter((el) => matchSearchTerm(el));
-
-
+    const filteredLectures = lectureArray.filter((el) => matchSearchWord(el));
     const startIndex = (currentPage - 1) * lecturesPerPage;
     const endIndex = startIndex + lecturesPerPage;
     const currentPageLectures = filteredLectures.slice(startIndex, endIndex);
@@ -55,9 +49,9 @@ const LectureList = ({ lectures }) => {
           </li>
         </NavLink>
       ));
-  }; return (
+  };
+  return (
     <section className="lectureList">
-
       <div className='navContainer'>
         <div className='navBar'>
           <input
@@ -65,13 +59,10 @@ const LectureList = ({ lectures }) => {
             placeholder="授業・教授・学部"
             type="text"
             ref={searchInput}
-            onKeyUp={updateSearchTerm} // キーを話した時に実行
+            onKeyUp={updateSearchWord} // キーを話した時に実行
           />
-
         </div>
-
       </div>
-
       <div>
         <ul className='lectureList'>{renderLectures(lectures)}</ul>
       </div>
