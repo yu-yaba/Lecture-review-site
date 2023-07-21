@@ -20,7 +20,6 @@ const ReviewForm = ({ onSave }) => {
       content_quality: '',
       content: '',
     };
-
     return { ...defaults };
   };
 

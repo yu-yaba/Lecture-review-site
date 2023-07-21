@@ -22,7 +22,6 @@ const Pagination = ({
     setCurrentPage((prev) => Math.max(prev - 1, 1));
   };
   // 次のページボタンの関数、min関数で100以上にならないようにする
-
   const handleNext = () => {
     setCurrentPage((prev) => Math.min(prev + 1, MAX_PAGES));
   };
