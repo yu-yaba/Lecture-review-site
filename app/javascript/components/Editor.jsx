@@ -20,7 +20,6 @@ const Editor = () => {
   const [images, setImages] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
 
-
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -55,7 +54,6 @@ const Editor = () => {
       handleAjaxError("授業の登録に失敗しました");
     }
   };
-
 
   const addReview = async (newReview) => {
     try {

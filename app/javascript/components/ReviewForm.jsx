@@ -20,7 +20,6 @@ const ReviewForm = ({ onSave }) => {
       content_quality: '',
       content: '',
     };
-
     return { ...defaults };
   };
 
@@ -57,15 +56,6 @@ const ReviewForm = ({ onSave }) => {
     );
   };
 
-  const cancelURL = `/lectures/${id}`;
-
-  const [value, setvalue] = useState(3);
-
-  const starOnChange = (newValue) => {
-    setvalue(newValue);
-    setReview({ ...review, rating: newValue });
-  };
-
   const handleSubmit = (e) => {
     e.preventDefault();
     const errors = validateReview(review); // errorsにエラーメッセージを格納
@@ -75,6 +65,15 @@ const ReviewForm = ({ onSave }) => {
     } else {
       onSave({ ...review, lecture_id: id, rating: value });
     }
+  };
+
+  const cancelURL = `/lectures/${id}`;
+
+  const [value, setvalue] = useState(3);
+
+  const starOnChange = (newValue) => {
+    setvalue(newValue);
+    setReview({ ...review, rating: newValue });
   };
 
 

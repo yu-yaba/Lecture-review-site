@@ -7,9 +7,7 @@ import { pdfjs, Document, Page } from 'react-pdf';
 import LectureNotFound from './LectureNotFound';
 import { handleAjaxError } from '../helpers/helpers';
 import "react-pdf/dist/esm/Page/AnnotationLayer.css"
-
 import './Lecture.module.css';
-
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
@@ -27,41 +25,13 @@ const customStyles = {
   }
 };
 
-
 const Lecture = ({ lectures }) => {
   const [reviews, setReviews] = useState({ reviews: [], avgRating: "" });
-  const [isOpen, setIsOpen] = React.useState(false); // モーダルの状態を管理
-  const [images, setImages] = useState([]); // 画像のURLを保持
-  const { id } = useParams(); // useParamsでURLを取得し、分割代入でidを代入
-  const lecture = lectures.find((e) => e.id === Number(id)); // findでidが一致するlectureを取得
+  const [isOpen, setIsOpen] = useState(false); 
+  const [images, setImages] = useState([]);
+  const { id } = useParams(); 
+  const lecture = lectures.find((e) => e.id === Number(id)); 
   const [imageCount, setImageCount] = useState(0);
-
-  useEffect(() => {
-    const fetchImages = async () => {
-      const response = await fetch(`/api/lectures/${id}/images`);
-      if (!response.ok) throw Error(response.statusText);
-      const data = await response.json();
-      const imageUrls = data.images ? data.images.map(image => ({ url: image.url, type: image.type })) : [];
-      setImages(imageUrls);
-      setImageCount(imageUrls.length); // 画像の数をstateに保存
-      console.log("Image data fetched: ", data);
-    };
-
-    fetchImages(); // 関数を呼び出し
-  }, [id]); // idが変更された時に再度実行
-
-
-  const openModal = () => {
-    if (imageCount === 0) {
-      handleAjaxError("過去問はありません");
-      return;
-    }
-    setIsOpen(true);
-  };
-
-  const closeModal = () => { // モーダルを閉じる関数
-    setIsOpen(false);
-  };
 
   useEffect(() => {
     const fetchReviews = async () => {
@@ -82,6 +52,32 @@ const Lecture = ({ lectures }) => {
 
     fetchReviews();
   }, [id]);
+
+  useEffect(() => {
+    const fetchImages = async () => {
+      const response = await fetch(`/api/lectures/${id}/images`);
+      if (!response.ok) throw Error(response.statusText);
+      const data = await response.json();
+      const imageUrls = data.images ? data.images.map(image => ({ url: image.url, type: image.type })) : [];
+      setImages(imageUrls);
+      setImageCount(imageUrls.length); 
+    };
+
+    fetchImages();
+  }, [id]);
+
+  const openModal = () => {
+    if (imageCount === 0) {
+      handleAjaxError("過去問はありません");
+      return;
+    }
+    setIsOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsOpen(false);
+  };
+
 
   if (!lecture) return <LectureNotFound />;
 
@@ -108,7 +104,7 @@ const Lecture = ({ lectures }) => {
       </div>
       <div className='modalCon'>
         <button type='button' onClick={openModal} style={{ color: imageCount === 0 ? 'red' : '#1DBE67' }}>過去問 ({imageCount})</button>
-        <Modal // モーダルの実装
+        <Modal 
           isOpen={isOpen}
           onRequestClose={closeModal}
           style={customStyles}
@@ -145,7 +141,7 @@ const Lecture = ({ lectures }) => {
             <li className='eachReview'>
               <ReactStarsRating
                 value={parseFloat(review.rating)}
-                isEdit={false} // ユーザーが評価を編集できないようにする
+                isEdit={false}
                 isHalf
               />
               <p><strong>受講時期</strong> {review.period_year}, {review.period_term} </p>
@@ -158,12 +154,10 @@ const Lecture = ({ lectures }) => {
             </li>
           </div>
         ))}
-
       </div>
       <div className='addButtonCon'>
         <Link to="newReview" className='addReview'><button type='button'>レビューする</button></Link>
       </div>
-
     </div>
   );
 };
